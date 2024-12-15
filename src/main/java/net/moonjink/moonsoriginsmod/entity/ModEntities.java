@@ -7,6 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
+import net.moonjink.moonsoriginsmod.entity.custom.LichLargeSummonedSkeletonEntity;
 import net.moonjink.moonsoriginsmod.entity.custom.LichSummonedSkeletonEntity;
 
 public class ModEntities {
@@ -16,6 +17,10 @@ public class ModEntities {
     public static final RegistryObject<EntityType<LichSummonedSkeletonEntity>> LICH_SUMMONED_SKELETON =
             ENTITY_TYPES.register("lich_summoned_skeleton", () -> EntityType.Builder.of(LichSummonedSkeletonEntity::new, MobCategory.MONSTER)
                     .sized(0.5f, 2f).build("lich_summoned_skeleton"));
+
+    public static final RegistryObject<EntityType<LichLargeSummonedSkeletonEntity>> LICH_LARGE_SUMMONED_SKELETON =
+            ENTITY_TYPES.register("lich_large_summoned_skeleton", () -> EntityType.Builder.of(LichLargeSummonedSkeletonEntity::new, MobCategory.MONSTER)
+                    .sized(2f, 2f).build("lich_large_summoned_skeleton"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

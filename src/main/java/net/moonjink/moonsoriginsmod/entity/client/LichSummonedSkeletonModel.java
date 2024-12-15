@@ -1,7 +1,4 @@
 package net.moonjink.moonsoriginsmod.entity.client;// Made with Blockbench 4.11.2
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
-
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -12,52 +9,94 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.moonjink.moonsoriginsmod.entity.animations.ModAnimationDefinitions;
+import net.moonjink.moonsoriginsmod.entity.custom.LichLargeSummonedSkeletonEntity;
 import net.moonjink.moonsoriginsmod.entity.custom.LichSummonedSkeletonEntity;
 
 public class LichSummonedSkeletonModel<T extends Entity> extends HierarchicalModel<T> {
 
-	private final ModelPart lich_summoned_skeleton;
-	private final ModelPart body;
-	private final ModelPart head;
+	private final ModelPart lichsummonedskeleton;
 	private final ModelPart torso;
+	private final ModelPart upper_torso;
+	private final ModelPart upper_torso_main;
+	private final ModelPart neck;
+	private final ModelPart head;
 	private final ModelPart left_arm;
+	private final ModelPart lower_left_arm;
 	private final ModelPart right_arm;
+	private final ModelPart lower_right_arm;
+	private final ModelPart lower_torso;
+	private final ModelPart lower_torso_main;
 	private final ModelPart left_leg;
+	private final ModelPart lower_left_leg;
 	private final ModelPart right_leg;
+	private final ModelPart lower_right_leg;
 
 	public LichSummonedSkeletonModel(ModelPart root) {
-		this.lich_summoned_skeleton = root.getChild("lich_summoned_skeleton");
-		this.body = this.lich_summoned_skeleton.getChild("body");
-		this.head = this.body.getChild("head");
-		this.torso = this.body.getChild("torso");
-		this.left_arm = this.body.getChild("left_arm");
-		this.right_arm = this.body.getChild("right_arm");
-		this.left_leg = this.body.getChild("left_leg");
-		this.right_leg = this.body.getChild("right_leg");
+		this.lichsummonedskeleton = root.getChild("lichsummonedskeleton");
+		this.torso = this.lichsummonedskeleton.getChild("torso");
+		this.upper_torso = this.torso.getChild("upper_torso");
+		this.upper_torso_main = this.upper_torso.getChild("upper_torso_main");
+		this.neck = this.upper_torso.getChild("neck");
+		this.head = this.neck.getChild("head");
+		this.left_arm = this.upper_torso.getChild("left_arm");
+		this.lower_left_arm = this.left_arm.getChild("lower_left_arm");
+		this.right_arm = this.upper_torso.getChild("right_arm");
+		this.lower_right_arm = this.right_arm.getChild("lower_right_arm");
+		this.lower_torso = this.torso.getChild("lower_torso");
+		this.lower_torso_main = this.lower_torso.getChild("lower_torso_main");
+		this.left_leg = this.lower_torso.getChild("left_leg");
+		this.lower_left_leg = this.left_leg.getChild("lower_left_leg");
+		this.right_leg = this.lower_torso.getChild("right_leg");
+		this.lower_right_leg = this.right_leg.getChild("lower_right_leg");
 	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition lich_summoned_skeleton = partdefinition.addOrReplaceChild("lich_summoned_skeleton", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
+		PartDefinition lichsummonedskeleton = partdefinition.addOrReplaceChild("lichsummonedskeleton", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 22.975F, 0.0F, -0.0349F, 0.0F, 0.0F));
 
-		PartDefinition body = lich_summoned_skeleton.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition torso = lichsummonedskeleton.addOrReplaceChild("torso", CubeListBuilder.create(), PartPose.offset(0.0F, -17.5F, 0.0F));
 
-		PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
-				.texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, -24.0F, 0.0F));
+		PartDefinition upper_torso = torso.addOrReplaceChild("upper_torso", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.3927F, 0.0F, 0.0F));
 
-		PartDefinition torso = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, -6.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -18.0F, 0.0F));
+		PartDefinition upper_torso_main = upper_torso.addOrReplaceChild("upper_torso_main", CubeListBuilder.create().texOffs(16, 16).addBox(-3.0F, 0.0F, -3.0F, 6.0F, 7.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.0F, 0.125F));
 
-		PartDefinition left_arm = body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).mirror().addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(5.0F, -24.0F, 0.0F));
+		PartDefinition neck = upper_torso.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(54, 0).addBox(-1.0F, -3.6125F, -1.475F, 2.0F, 6.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -7.0F, -0.5F, -0.3491F, 0.0F, 0.0F));
 
-		PartDefinition right_arm = body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 16).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, -24.0F, 0.0F));
+		PartDefinition head = neck.addOrReplaceChild("head", CubeListBuilder.create().texOffs(1, 1).addBox(-4.0F, -4.25F, -2.5F, 8.0F, 6.0F, 7.0F, new CubeDeformation(0.0F))
+				.texOffs(32, 38).addBox(-4.0F, 1.75F, -2.5F, 8.0F, 1.0F, 3.0F, new CubeDeformation(0.0F))
+				.texOffs(33, 1).addBox(-4.0F, -5.25F, -2.475F, 8.0F, 8.0F, 7.0F, new CubeDeformation(0.5F))
+				.texOffs(24, 4).addBox(-1.0F, -1.125F, -3.25F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -2.75F, -2.25F, -0.0436F, 0.0F, 0.0F));
 
-		PartDefinition left_leg = body.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(2.0F, -12.0F, 0.0F));
+		PartDefinition left_arm = upper_torso.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).addBox(0.0F, 1.0F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(28, 8).addBox(-0.5F, 0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.25F, -6.0F, 0.0F, -0.336F, -0.1251F, -0.4202F));
 
-		PartDefinition right_leg = body.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, -12.0F, 0.0F));
+		PartDefinition lower_left_arm = left_arm.addOrReplaceChild("lower_left_arm", CubeListBuilder.create().texOffs(40, 24).addBox(-1.0F, 1.25F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(28, 8).addBox(-0.5F, -0.25F, -0.5F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.0F, 6.25F, 0.0F, 0.0F, 0.0F, 0.4363F));
 
-		return LayerDefinition.create(meshdefinition, 64, 32);
+		PartDefinition right_arm = upper_torso.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 16).addBox(-2.0F, 1.0F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(28, 8).addBox(-0.5F, 0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.25F, -6.0F, 0.0F, -0.2953F, 0.1171F, 0.405F));
+
+		PartDefinition lower_right_arm = right_arm.addOrReplaceChild("lower_right_arm", CubeListBuilder.create().texOffs(40, 24).addBox(-1.0F, 1.25F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(28, 8).addBox(-0.5F, -0.25F, -0.5F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, 6.25F, 0.0F, 0.0F, 0.0F, -0.4363F));
+
+		PartDefinition lower_torso = torso.addOrReplaceChild("lower_torso", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 2.75F, 0.6F, 0.0436F, 0.0F, 0.0F));
+
+		PartDefinition lower_torso_main = lower_torso.addOrReplaceChild("lower_torso_main", CubeListBuilder.create().texOffs(16, 34).addBox(-2.0F, 1.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
+				.texOffs(16, 28).addBox(-3.0F, 5.0F, -2.0F, 6.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -3.75F, 0.0F));
+
+		PartDefinition left_leg = lower_torso.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 7.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 2.25F, 0.0F));
+
+		PartDefinition lower_left_leg = left_leg.addOrReplaceChild("lower_left_leg", CubeListBuilder.create().texOffs(0, 25).addBox(-1.0F, 1.25F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(28, 8).addBox(-0.5F, 0.25F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 6.25F, 0.0F));
+
+		PartDefinition right_leg = lower_torso.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 7.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 2.25F, 0.0F));
+
+		PartDefinition lower_right_leg = right_leg.addOrReplaceChild("lower_right_leg", CubeListBuilder.create().texOffs(0, 25).addBox(-1.0F, 1.25F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(28, 8).addBox(-0.5F, 0.25F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 6.25F, 0.0F));
+
+		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
 	@Override
@@ -65,13 +104,9 @@ public class LichSummonedSkeletonModel<T extends Entity> extends HierarchicalMod
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
-		this.right_arm.xRot = (float) Math.cos(limbSwing * 0.6662F + (float) Math.PI) * 2.0F * limbSwingAmount * 0.5F;
-		this.left_arm.xRot = (float) Math.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F;
-
-		this.right_leg.xRot = (float) Math.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.left_leg.xRot = (float) Math.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-
-		this.animate(((LichSummonedSkeletonEntity) entity).idleAnimationState, ModAnimationDefinitions.idle, ageInTicks, 1f);
+		this.animate(((LichSummonedSkeletonEntity) entity).idleAnimationState, ModAnimationDefinitions.smallIdle, ageInTicks, 1f);
+		this.animateWalk(ModAnimationDefinitions.smallRun, limbSwing, limbSwingAmount, 2f, 2.5f);
+		this.animate(((LichSummonedSkeletonEntity) entity).attackAnimationState, ModAnimationDefinitions.smallAttack, ageInTicks, 1f);
 	}
 
 	private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -84,11 +119,11 @@ public class LichSummonedSkeletonModel<T extends Entity> extends HierarchicalMod
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		lich_summoned_skeleton.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		lichsummonedskeleton.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
 	public ModelPart root() {
-		return lich_summoned_skeleton;
+		return lichsummonedskeleton;
 	}
 }
