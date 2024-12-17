@@ -39,7 +39,6 @@ public class Moonsoriginsmod {
         modEventBus.addListener(this::addCreative);
 
         GeckoLib.initialize();
-
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
