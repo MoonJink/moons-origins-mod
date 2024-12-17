@@ -2,9 +2,16 @@
   "entity.moonsoriginsmod.lich_summoned_skeleton": "Lich-borne skeleton",
   "entity.moonsoriginsmod.lich_large_summoned_skeleton": "Lich-borne ravager",
 
+
   "item.moonsoriginsmod.lich_borne_iron": "Lich-borne iron",
-  "item.moonsoriginsmod.lich_gauntlet": "Gauntlet of Thaumaturgy (fully imbued)",
-  "item.moonsoriginsmod.lich_gauntlet_empty": "Gauntlet of Thaumaturgy (empty)",
-  "item.moonsoriginsmod.lich_gauntlet_flame": "Gauntlet of Thaumaturgy (flame imbued)",
-  "item.moonsoriginsmod.lich_gauntlet_soul": "Gauntlet of Thaumaturgy (soul imbued)"
+
+  "item.moonsoriginsmod.lich_gauntlet": "Gauntlet of thaumaturge (fully imbued)",
+  "item.moonsoriginsmod.lich_gauntlet_empty": "Gauntlet of thaumaturge (empty)",
+  "item.moonsoriginsmod.lich_gauntlet_flame": "Gauntlet of thaumaturge (flame imbued)",
+  "item.moonsoriginsmod.lich_gauntlet_soul": "Gauntlet of thaumaturge (soul imbued)",
+
+  "item.moonsoriginsmod.flame_crystal": "Crystal of Flame",
+  "item.moonsoriginsmod.soul_crystal": "Crystal of Soul",
+  "item.moonsoriginsmod.arcane_crystal": "Crystal of Arcane",
+  "item.moonsoriginsmod.water_crystal": "Crystal of Aquae"
 }

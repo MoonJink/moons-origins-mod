@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "moonsoriginsmod:lich_gauntlet_empty"
+    },
+    {
+      "item": "moonsoriginsmod:soul_crystal"
+    }
+  ],
+  "result": {
+    "item": "moonsoriginsmod:lich_gauntlet_soul",
+    "count": 1
+  }
+}

@@ -2,22 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " # ",
-    "BiB",
+    "#A#",
     " # "
   ],
   "key": {
     "#": {
-      "item": "minecraft:coal"
-    },
-    "B": {
       "item": "minecraft:bone"
     },
-    "i": {
-      "item": "minecraft:iron_ingot"
+    "A": {
+      "item": "minecraft:amethyst_shard"
     }
   },
   "result": {
-    "item": "moonsoriginsmod:lich_borne_iron",
+    "item": "moonsoriginsmod:soul_crystal",
     "count": 1
   }
 }

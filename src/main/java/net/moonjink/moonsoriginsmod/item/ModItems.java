@@ -19,10 +19,16 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> FLAME_CRYSTAL = ITEMS.register("flame_crystal",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> SOUL_CRYSTAL = ITEMS.register("soul_crystal",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> ARCANE_CRYSTAL = ITEMS.register("arcane_crystal",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> WATER_CRYSTAL = ITEMS.register("water_crystal",
+            () -> new Item(new Item.Properties().stacksTo(1)));
 
 
 

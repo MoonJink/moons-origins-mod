@@ -12,6 +12,26 @@
 			},
 			"bones": [
 				{
+					"name": "bb_main",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{
+							"origin": [-0.425, -6.2, 4.3875],
+							"size": [1, 0.199, 1],
+							"pivot": [0.075, -5.975, 4.8875],
+							"rotation": [0, 90, 180],
+							"uv": {
+								"north": {"uv": [27, 4], "uv_size": [-1, 1], "uv_rotation": 270},
+								"east": {"uv": [26, 1], "uv_size": [1, 1], "uv_rotation": 270},
+								"south": {"uv": [27, 4], "uv_size": [-1, -1], "uv_rotation": 270},
+								"west": {"uv": [26, 0], "uv_size": [1, 1], "uv_rotation": 90},
+								"up": {"uv": [2, 27], "uv_size": [-1, -1], "uv_rotation": 180},
+								"down": {"uv": [27, 3], "uv_size": [-1, -1]}
+							}
+						}
+					]
+				},
+				{
 					"name": "Gauntlet",
 					"pivot": [0, 0, 0]
 				},

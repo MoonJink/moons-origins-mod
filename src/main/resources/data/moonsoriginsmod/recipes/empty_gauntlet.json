@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XAX",
+    "L L",
+    "XWX"
+  ],
+  "key": {
+    "X": {
+      "item": "moonsoriginsmod:lich_borne_iron"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "A": {
+      "item": "moonsoriginsmod:arcane_crystal"
+    },
+    "W": {
+      "item": "moonsoriginsmod:water_crystal"
+    }
+  },
+  "result": {
+    "item": "moonsoriginsmod:lich_gauntlet_empty",
+    "count": 1
+  }
+}
