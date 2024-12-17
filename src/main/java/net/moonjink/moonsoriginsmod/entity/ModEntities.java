@@ -9,6 +9,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
 import net.moonjink.moonsoriginsmod.entity.custom.LichLargeSummonedSkeletonEntity;
 import net.moonjink.moonsoriginsmod.entity.custom.LichSummonedSkeletonEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.PermanentLichSummonedSkeletonEntity;
 
 public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
@@ -21,6 +22,10 @@ public class ModEntities {
     public static final RegistryObject<EntityType<LichLargeSummonedSkeletonEntity>> LICH_LARGE_SUMMONED_SKELETON =
             ENTITY_TYPES.register("lich_large_summoned_skeleton", () -> EntityType.Builder.of(LichLargeSummonedSkeletonEntity::new, MobCategory.MONSTER)
                     .sized(2f, 2f).build("lich_large_summoned_skeleton"));
+
+    public static final RegistryObject<EntityType<PermanentLichSummonedSkeletonEntity>> PERMANENT_LICH_SUMMONED_SKELETON =
+            ENTITY_TYPES.register("permanent_lich_summoned_skeleton", () -> EntityType.Builder.of(PermanentLichSummonedSkeletonEntity::new, MobCategory.MONSTER)
+                    .sized(0.5f, 2f).build("permanent_lich_summoned_skeleton"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
