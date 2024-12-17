@@ -15,7 +15,7 @@ public class LichSummonedSkeletonRenderer extends MobRenderer<LichSummonedSkelet
 
     @Override
     public ResourceLocation getTextureLocation(LichSummonedSkeletonEntity lichSummonedSkeletonEntity) {
-        return new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/lich-summoned-skeleton.png");
+        return new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/lich_summoned_skeleton.png");
     }
 
     @Override

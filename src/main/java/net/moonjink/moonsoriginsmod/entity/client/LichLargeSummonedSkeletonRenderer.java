@@ -15,7 +15,7 @@ public class LichLargeSummonedSkeletonRenderer extends MobRenderer<LichLargeSumm
 
     @Override
     public ResourceLocation getTextureLocation(LichLargeSummonedSkeletonEntity lichLargeSummonedSkeletonEntity) {
-        return new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/lich-large-summoned-skeleton.png");
+        return new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/lich_large_summoned_skeleton.png");
     }
 
     @Override

@@ -1,0 +1,142 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.lich_gauntlet.idle": {
+			"loop": true,
+			"animation_length": 10,
+			"bones": {
+				"Gem": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						},
+						"2.5": {
+							"vector": [0, 0, -90],
+							"easing": "linear"
+						},
+						"5.0": {
+							"vector": [0, 0, -180],
+							"easing": "linear"
+						},
+						"7.5": {
+							"vector": [0, 0, -270],
+							"easing": "linear"
+						},
+						"10.0": {
+							"vector": [0, 0, -360],
+							"easing": "linear"
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						},
+						"10.0": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						}
+					}
+				},
+				"Arcane": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						},
+						"2.5": {
+							"vector": [-0.275, 0.05, 0.125],
+							"easing": "linear"
+						},
+						"5.0": {
+							"vector": [-0.105, 0.025, 0.005],
+							"easing": "linear"
+						},
+						"7.5": {
+							"vector": [0.165, -0.02, 0.11],
+							"easing": "linear"
+						},
+						"10.0": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						}
+					}
+				},
+				"Soul": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						},
+						"2.5": {
+							"vector": [0, 0.175, -0.1],
+							"easing": "linear"
+						},
+						"5.0": {
+							"vector": [0.075, 0.48, 0],
+							"easing": "linear"
+						},
+						"7.5": {
+							"vector": [0.055, 0.255, -0.125],
+							"easing": "linear"
+						},
+						"10.0": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						}
+					}
+				},
+				"Flame": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						},
+						"2.5": {
+							"vector": [-0.225, 0.05, 0.125],
+							"easing": "linear"
+						},
+						"5.0": {
+							"vector": [-0.02, 0.025, 0.005],
+							"easing": "linear"
+						},
+						"7.5": {
+							"vector": [0.18, -0.02, 0.11],
+							"easing": "linear"
+						},
+						"10.0": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						}
+					}
+				},
+				"Water": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						},
+						"2.5": {
+							"vector": [0, 0.175, -0.125],
+							"easing": "linear"
+						},
+						"5.0": {
+							"vector": [0.075, 0.38, 0.03],
+							"easing": "linear"
+						},
+						"7.5": {
+							"vector": [0.055, 0.28, -0.12],
+							"easing": "linear"
+						},
+						"10.0": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

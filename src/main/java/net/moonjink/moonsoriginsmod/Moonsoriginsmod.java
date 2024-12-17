@@ -15,7 +15,9 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.moonjink.moonsoriginsmod.entity.ModEntities;
 import net.moonjink.moonsoriginsmod.entity.client.LichSummonedSkeletonRenderer;
 import net.moonjink.moonsoriginsmod.entity.client.LichLargeSummonedSkeletonRenderer;
+import net.moonjink.moonsoriginsmod.item.ModItems;
 import org.slf4j.Logger;
+import software.bernie.geckolib.GeckoLib;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Moonsoriginsmod.MOD_ID)
@@ -28,11 +30,15 @@ public class Moonsoriginsmod {
     public Moonsoriginsmod(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
 
+        ModItems.register(modEventBus);
+
         modEventBus.addListener(this::commonSetup);
         ModEntities.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);
+
+        GeckoLib.initialize();
 
     }
 
