@@ -4,24 +4,24 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.moonjink.moonsoriginsmod.entity.custom.LichSummonedSkeletonEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.PermanentLichSummonedSkeletonEntity;
 
-public class LichSummonedSkeletonAttackGoal extends MeleeAttackGoal {
-    private final LichSummonedSkeletonEntity entity;
-    private int attackDelay = 14;
-    private int ticksUntilNextAttack = 16;
+public class PermanentLichSummonedSkeletonAttackGoal extends MeleeAttackGoal {
+    private final PermanentLichSummonedSkeletonEntity entity;
+    private int attackDelay = 15;
+    private int ticksUntilNextAttack = 15;
     private boolean shouldCountTillNextAttack = false;
 
-    public LichSummonedSkeletonAttackGoal(PathfinderMob pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
+    public PermanentLichSummonedSkeletonAttackGoal(PathfinderMob pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
         super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
-        entity = ((LichSummonedSkeletonEntity) pMob);
+        entity = ((PermanentLichSummonedSkeletonEntity) pMob);
     }
 
     @Override
     public void start() {
         super.start();
-        attackDelay = 14;
-        ticksUntilNextAttack = 16;
+        attackDelay = 15;
+        ticksUntilNextAttack = 15;
     }
 
     @Override

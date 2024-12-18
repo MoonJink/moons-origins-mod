@@ -15,12 +15,12 @@ public class PermanentLichSummonedSkeletonRenderer extends MobRenderer<Permanent
 
     @Override
     public ResourceLocation getTextureLocation(PermanentLichSummonedSkeletonEntity permanentLichSummonedSkeletonEntity) {
-        return new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/lich_summoned_skeleton.png");
+        return new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/permanent_lich_summoned_skeleton.png");
     }
 
     @Override
     public void render(PermanentLichSummonedSkeletonEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
-        pPoseStack.scale(1.2F, 1.2F, 1.2F);
+        pPoseStack.scale(1.25F, 1.25F, 1.25F);
         super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
     }
 }

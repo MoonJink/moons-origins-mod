@@ -27,7 +27,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.moonjink.moonsoriginsmod.entity.ai.LichSummonedSkeletonAttackGoal;
+import net.moonjink.moonsoriginsmod.entity.ai.LichSummonWaterAvoidingRandomStrollGoal;
+import net.moonjink.moonsoriginsmod.entity.ai.LichSummonsFollowGoal;
+import net.moonjink.moonsoriginsmod.entity.ai.PermanentLichSummonedSkeletonAttackGoal;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
@@ -37,6 +39,11 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME;
     private UUID persistentAngerTarget;
 
+    public static int one_summon_limit;
+
+    private static final EntityDataAccessor<Boolean> ATTACKING =
+            SynchedEntityData.defineId(PermanentLichSummonedSkeletonEntity.class, EntityDataSerializers.BOOLEAN);
+
     public PermanentLichSummonedSkeletonEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -44,11 +51,12 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal((this)));
-        this.goalSelector.addGoal(0,new MeleeAttackGoal(this,1.0D, true));
-        this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.2, 10.0F, 5.0F, false));
-        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Mob.class, 8.0F));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(0,new PermanentLichSummonedSkeletonAttackGoal(this,1.0D, true));
+        this.goalSelector.addGoal(2, new LichSummonsFollowGoal(this,1,10.0F,3.0F, false));
+        this.goalSelector.addGoal(3, new LichSummonWaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Mob.class, 8.0F));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this)).setAlertOthers());
@@ -57,18 +65,20 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
 
     public static AttributeSupplier.Builder createAttributes() {
         return TamableAnimal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH,30)
-                .add(Attributes.FOLLOW_RANGE,35D)
-                .add(Attributes.ATTACK_DAMAGE, 10)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.4)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0)
+                .add(Attributes.MAX_HEALTH,25)
+                .add(Attributes.FOLLOW_RANGE,35)
+                .add(Attributes.ATTACK_DAMAGE, 6)
+                .add(Attributes.ATTACK_KNOCKBACK, 0.4D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
                 .add(Attributes.ARMOR, 3)
                 .add(Attributes.ARMOR_TOUGHNESS, 3)
-                .add(Attributes.MOVEMENT_SPEED,0.4d);
+                .add(Attributes.MOVEMENT_SPEED,0.3D);
     }
 
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+    public final AnimationState attackAnimationState = new AnimationState();
+    public int attackAnimationTimeout = 0;
 
     @Override
     // Override of the tick function, allows you to do something every tick
@@ -80,18 +90,56 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
         }
     }
 
+    @Override
+    public void onAddedToWorld() {
+        super.onAddedToWorld();
+        if (!this.level().isClientSide) {
+            one_summon_limit++;
+            if (one_summon_limit > 1) {
+                this.discard();
+            }
+        }
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        super.remove(reason);
+        if (!this.level().isClientSide) {
+            one_summon_limit = Math.max(0, one_summon_limit - 1);
+        }
+    }
+
     private void setupAnimationStates() {
         if(this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+            this.idleAnimationTimeout = 60; // Length in ticks of anim
             this.idleAnimationState.start(this.tickCount);
         } else {
             --this.idleAnimationTimeout;
         }
+        if(this.isAttacking() && attackAnimationTimeout <= 0) {
+            attackAnimationTimeout = 30; // Length in ticks of anim
+            attackAnimationState.start(this.tickCount);
+        } else {
+            --this.attackAnimationTimeout;
+        }
+
+        if(!this.isAttacking()){
+            attackAnimationState.stop();
+        }
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.entityData.set(ATTACKING, attacking);
+    }
+
+    public boolean isAttacking(){
+        return this.entityData.get(ATTACKING);
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(ATTACKING, false);
         this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
@@ -122,7 +170,7 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
                 itemstack.shrink(1);
             }
 
-            if (this.random.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+            if (this.random.nextInt(1) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
                 this.tame(pPlayer);
                 this.navigation.stop();
                 this.setTarget((LivingEntity)null);
@@ -134,19 +182,6 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
             return InteractionResult.SUCCESS;
         } else {
             return super.mobInteract(pPlayer, pHand);
-        }
-    }
-
-    @Override
-    public boolean doHurtTarget(Entity pEntity) {
-        if (!super.doHurtTarget(pEntity)) {
-            return false;
-        } else {
-            if (pEntity instanceof LivingEntity) {
-                ((LivingEntity)pEntity).addEffect(new MobEffectInstance(MobEffects.WITHER, 200), this);
-            }
-
-            return true;
         }
     }
 

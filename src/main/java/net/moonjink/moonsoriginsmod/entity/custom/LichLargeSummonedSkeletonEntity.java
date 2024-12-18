@@ -1,12 +1,13 @@
 package net.moonjink.moonsoriginsmod.entity.custom;
 
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -16,8 +17,10 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -25,17 +28,24 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.moonjink.moonsoriginsmod.entity.ai.LichLargeSummonedSkeletonAttackGoal;
+import net.moonjink.moonsoriginsmod.entity.ai.LichSummonWaterAvoidingRandomStrollGoal;
+import net.moonjink.moonsoriginsmod.entity.ai.LichSummonsFollowGoal;
 import org.jetbrains.annotations.Nullable;
 
-public class LichLargeSummonedSkeletonEntity extends TamableAnimal {
+import java.util.UUID;
+
+public class LichLargeSummonedSkeletonEntity extends TamableAnimal implements NeutralMob {
     private int lifespan;
+    private static final UniformInt PERSISTENT_ANGER_TIME;
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME;
+    private UUID persistentAngerTarget;
 
     private static final EntityDataAccessor<Boolean> ATTACKING =
             SynchedEntityData.defineId(LichLargeSummonedSkeletonEntity.class, EntityDataSerializers.BOOLEAN);
 
     public LichLargeSummonedSkeletonEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.lifespan = 20 * 30;
+        this.lifespan = 20 * 45;
     }
 
     public final AnimationState idleAnimationState = new AnimationState();
@@ -48,24 +58,27 @@ public class LichLargeSummonedSkeletonEntity extends TamableAnimal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal((this)));
         this.goalSelector.addGoal(0,new LichLargeSummonedSkeletonAttackGoal(this,1, true));
-        this.goalSelector.addGoal(1, new FollowOwnerGoal(this, 1.2, 10.0F, 5.0F, false));
-        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Mob.class, 8.0F));
-        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(2, new LichSummonsFollowGoal(this,1.3,7.0F,3.0F, false));
+        this.goalSelector.addGoal(2, new LichSummonWaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Mob.class, 8.0F));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(3, (new HurtByTargetGoal(this)).setAlertOthers());
+        this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return TamableAnimal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH,80)
-                .add(Attributes.FOLLOW_RANGE,32D)
+                .add(Attributes.FOLLOW_RANGE,32)
                 .add(Attributes.ATTACK_DAMAGE, 16)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.5)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.75)
+                .add(Attributes.ATTACK_KNOCKBACK, 0.5D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D)
                 .add(Attributes.ARMOR, 0)
                 .add(Attributes.ARMOR_TOUGHNESS, 0)
-                .add(Attributes.MOVEMENT_SPEED,0.3d);
+                .add(Attributes.MOVEMENT_SPEED,0.25D);
     }
 
     @Override
@@ -89,7 +102,7 @@ public class LichLargeSummonedSkeletonEntity extends TamableAnimal {
 
     private void setupAnimationStates() {
         if(this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+            this.idleAnimationTimeout = 60; // Length in ticks of anim
             this.idleAnimationState.start(this.tickCount);
         } else {
             --this.idleAnimationTimeout;
@@ -131,6 +144,7 @@ public class LichLargeSummonedSkeletonEntity extends TamableAnimal {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ATTACKING, false);
+        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
     @Override
@@ -147,7 +161,7 @@ public class LichLargeSummonedSkeletonEntity extends TamableAnimal {
                 itemstack.shrink(1);
             }
 
-            if (this.random.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+            if (this.random.nextInt(1) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
                 this.tame(pPlayer);
                 this.navigation.stop();
                 this.setTarget((LivingEntity)null);
@@ -194,5 +208,33 @@ public class LichLargeSummonedSkeletonEntity extends TamableAnimal {
 
     protected SoundEvent getStepSound() {
         return SoundEvents.RAVAGER_STEP;
+    }
+
+    @Override
+    public int getRemainingPersistentAngerTime() {
+        return (Integer)this.entityData.get(DATA_REMAINING_ANGER_TIME);
+    }
+
+    @Override
+    public void setRemainingPersistentAngerTime(int pTime) {
+        this.entityData.set(DATA_REMAINING_ANGER_TIME, pTime);
+    }
+
+    @Override
+    public void startPersistentAngerTimer() {
+        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+    }
+
+    @Nullable
+    public UUID getPersistentAngerTarget() {
+        return this.persistentAngerTarget;
+    }
+
+    public void setPersistentAngerTarget(@Nullable UUID pTarget) {
+        this.persistentAngerTarget = pTarget;
+    }
+    static {
+        DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(LichLargeSummonedSkeletonEntity.class, EntityDataSerializers.INT);
+        PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     }
 }

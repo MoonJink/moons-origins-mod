@@ -1,18 +1,18 @@
 {
-  "entity.moonsoriginsmod.lich_summoned_skeleton": "Lich-borne skeleton",
-  "entity.moonsoriginsmod.lich_large_summoned_skeleton": "Lich-borne ravager",
-  "entity.moonsoriginsmod.permanent_lich_summoned_skeleton": "Undying Lich-borne",
+  "entity.moonsoriginsmod.lich_summoned_skeleton": "§bLich-borne",
+  "entity.moonsoriginsmod.lich_large_summoned_skeleton": "§bLich-borne ravager",
+  "entity.moonsoriginsmod.permanent_lich_summoned_skeleton": "§dLich-borne loyalist",
 
 
-  "item.moonsoriginsmod.lich_borne_iron": "Lich-borne iron",
+  "item.moonsoriginsmod.lich_borne_iron": "§eLich-borne iron",
 
-  "item.moonsoriginsmod.lich_gauntlet": "Gauntlet of thaumaturge (fully imbued)",
-  "item.moonsoriginsmod.lich_gauntlet_empty": "Gauntlet of thaumaturge (empty)",
-  "item.moonsoriginsmod.lich_gauntlet_flame": "Gauntlet of thaumaturge (flame imbued)",
-  "item.moonsoriginsmod.lich_gauntlet_soul": "Gauntlet of thaumaturge (soul imbued)",
+  "item.moonsoriginsmod.lich_gauntlet": "§dGauntlet of thaumaturgy §r§7§o(fully imbued)",
+  "item.moonsoriginsmod.lich_gauntlet_empty": "§dGauntlet of thaumaturgy §r§7§o(empty)",
+  "item.moonsoriginsmod.lich_gauntlet_flame": "§dGauntlet of thaumaturgy §r§7§o(§r§6§oflame §r§7§oimbued)",
+  "item.moonsoriginsmod.lich_gauntlet_soul": "§dGauntlet of thaumaturgy §r§7§o(§r§b§osoul §r§7§oimbued)",
 
-  "item.moonsoriginsmod.flame_crystal": "Crystal of Flame",
-  "item.moonsoriginsmod.soul_crystal": "Crystal of Soul",
-  "item.moonsoriginsmod.arcane_crystal": "Crystal of Arcane",
-  "item.moonsoriginsmod.water_crystal": "Crystal of Aquae"
+  "item.moonsoriginsmod.flame_crystal": "§6Crystal of Flame",
+  "item.moonsoriginsmod.soul_crystal": "§bCrystal of Soul",
+  "item.moonsoriginsmod.arcane_crystal": "§dCrystal of Arcane",
+  "item.moonsoriginsmod.water_crystal": "§9Crystal of Aquae"
 }

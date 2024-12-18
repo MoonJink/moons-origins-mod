@@ -68,6 +68,10 @@ public class PermanentLichSummonedSkeletonModel<T extends Entity> extends Hierar
 				.texOffs(33, 1).addBox(-4.0F, -5.25F, -2.475F, 8.0F, 8.0F, 7.0F, new CubeDeformation(0.5F))
 				.texOffs(24, 4).addBox(-1.0F, -1.125F, -3.25F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -2.75F, -2.25F, -0.0436F, 0.0F, 0.0F));
 
+		PartDefinition cube_r1 = head.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(2, 16).addBox(0.0F, -5.0F, -1.0F, 1.0F, 7.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.75F, -2.225F, 0.0F, 2.9302F, 1.2716F, -3.0159F));
+
+		PartDefinition cube_r2 = head.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(2, 16).addBox(0.0F, -5.0F, -1.0F, 1.0F, 7.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.5F, -2.5F, 0.0F, 0.3927F, 1.2654F, 0.0F));
+
 		PartDefinition left_arm = upper_torso.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).addBox(0.0F, 1.0F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F))
 				.texOffs(28, 8).addBox(-0.5F, 0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.25F, -6.0F, 0.0F, -0.336F, -0.1251F, -0.4202F));
 
@@ -105,6 +109,7 @@ public class PermanentLichSummonedSkeletonModel<T extends Entity> extends Hierar
 
 		this.animate(((PermanentLichSummonedSkeletonEntity) entity).idleAnimationState, ModAnimationDefinitions.smallIdle, ageInTicks, 1f);
 		this.animateWalk(ModAnimationDefinitions.smallRun, limbSwing, limbSwingAmount, 2f, 2.5f);
+		this.animate(((PermanentLichSummonedSkeletonEntity) entity).attackAnimationState, ModAnimationDefinitions.permAttack, ageInTicks, 1f);
 	}
 
 	private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {

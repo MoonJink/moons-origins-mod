@@ -21,12 +21,13 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
-import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.moonjink.moonsoriginsmod.entity.ai.LichSummonWaterAvoidingRandomStrollGoal;
 import net.moonjink.moonsoriginsmod.entity.ai.LichSummonedSkeletonAttackGoal;
+import net.moonjink.moonsoriginsmod.entity.ai.LichSummonsFollowGoal;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
@@ -42,18 +43,18 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
 
     public LichSummonedSkeletonEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.lifespan = 20 * 120;
+        this.lifespan = 20 * 60;
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal((this)));
         this.goalSelector.addGoal(0,new LichSummonedSkeletonAttackGoal(this,1.0D, true));
-        this.goalSelector.addGoal(0,new MeleeAttackGoal(this,1.0D, true));
-        this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.2, 10.0F, 5.0F, false));
-        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Mob.class, 8.0F));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(2, new LichSummonsFollowGoal(this,1,7.0F,3.0F, false));
+        this.goalSelector.addGoal(3, new LichSummonWaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Mob.class, 8.0F));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this)).setAlertOthers());
@@ -63,13 +64,13 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
     public static AttributeSupplier.Builder createAttributes() {
         return TamableAnimal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH,30)
-                .add(Attributes.FOLLOW_RANGE,35D)
+                .add(Attributes.FOLLOW_RANGE,35)
                 .add(Attributes.ATTACK_DAMAGE, 10)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.4)
+                .add(Attributes.ATTACK_KNOCKBACK, 0.4D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0)
                 .add(Attributes.ARMOR, 3)
                 .add(Attributes.ARMOR_TOUGHNESS, 3)
-                .add(Attributes.MOVEMENT_SPEED,0.4d);
+                .add(Attributes.MOVEMENT_SPEED,0.4D);
     }
 
     public final AnimationState idleAnimationState = new AnimationState();
@@ -98,13 +99,13 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
 
     private void setupAnimationStates() {
         if(this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+            this.idleAnimationTimeout = 60; // Length in ticks of anim;
             this.idleAnimationState.start(this.tickCount);
         } else {
             --this.idleAnimationTimeout;
         }
         if(this.isAttacking() && attackAnimationTimeout <= 0) {
-            attackAnimationTimeout = 20; // Length in ticks of anim
+            attackAnimationTimeout = 30; // Length in ticks of anim
             attackAnimationState.start(this.tickCount);
         } else {
             --this.attackAnimationTimeout;
@@ -157,7 +158,7 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
                 itemstack.shrink(1);
             }
 
-            if (this.random.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+            if (this.random.nextInt(1) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
                 this.tame(pPlayer);
                 this.navigation.stop();
                 this.setTarget((LivingEntity)null);
@@ -169,19 +170,6 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
             return InteractionResult.SUCCESS;
         } else {
             return super.mobInteract(pPlayer, pHand);
-        }
-    }
-
-    @Override
-    public boolean doHurtTarget(Entity pEntity) {
-        if (!super.doHurtTarget(pEntity)) {
-            return false;
-        } else {
-            if (pEntity instanceof LivingEntity) {
-                ((LivingEntity)pEntity).addEffect(new MobEffectInstance(MobEffects.WITHER, 200), this);
-            }
-
-            return true;
         }
     }
 
