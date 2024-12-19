@@ -9,7 +9,6 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.moonjink.moonsoriginsmod.entity.animations.ModAnimationDefinitions;
-import net.moonjink.moonsoriginsmod.entity.custom.LichLargeSummonedSkeletonEntity;
 import net.moonjink.moonsoriginsmod.entity.custom.LichSummonedSkeletonEntity;
 
 public class LichSummonedSkeletonModel<T extends Entity> extends HierarchicalModel<T> {

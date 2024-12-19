@@ -9,7 +9,6 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.moonjink.moonsoriginsmod.entity.animations.ModAnimationDefinitions;
-import net.moonjink.moonsoriginsmod.entity.custom.PermanentLichSummonedSkeletonEntity;
 import net.moonjink.moonsoriginsmod.entity.custom.SummonWolfEntity;
 
 public class SummonWolfModel<T extends Entity> extends HierarchicalModel<T> {
