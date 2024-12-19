@@ -20,6 +20,7 @@ public class PermanentLichSummonedSkeletonRenderer extends MobRenderer<Permanent
 
     @Override
     public void render(PermanentLichSummonedSkeletonEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
+        // Scale of creature, effects hitbox size too
         pPoseStack.scale(1.25F, 1.25F, 1.25F);
         super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
     }

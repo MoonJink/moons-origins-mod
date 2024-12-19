@@ -20,6 +20,7 @@ public class LichLargeSummonedSkeletonRenderer extends MobRenderer<LichLargeSumm
 
     @Override
     public void render(LichLargeSummonedSkeletonEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
+        // Scale of creature, effects hitbox size too
         pPoseStack.scale(1F, 1F, 1F);
         super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
     }

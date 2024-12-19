@@ -20,6 +20,7 @@ public class SummonWolfRenderer extends MobRenderer<SummonWolfEntity, SummonWolf
 
     @Override
     public void render(SummonWolfEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
+        // Scale of creature, effects hitbox size too
         pPoseStack.scale(1F, 1F, 1F);
         super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
     }
