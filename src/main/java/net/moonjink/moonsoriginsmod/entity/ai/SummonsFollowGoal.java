@@ -15,7 +15,7 @@ import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 
 import java.util.EnumSet;
 
-public class LichSummonsFollowGoal extends FollowOwnerGoal {
+public class SummonsFollowGoal extends FollowOwnerGoal {
     public static final int TELEPORT_WHEN_DISTANCE_IS = 12;
     private static final int MIN_HORIZONTAL_DISTANCE_FROM_PLAYER_WHEN_TELEPORTING = 2;
     private static final int MAX_HORIZONTAL_DISTANCE_FROM_PLAYER_WHEN_TELEPORTING = 3;
@@ -31,7 +31,7 @@ public class LichSummonsFollowGoal extends FollowOwnerGoal {
     private float oldWaterCost;
     private final boolean canFly;
 
-    public LichSummonsFollowGoal(TamableAnimal pTamable, double pSpeedModifier, float pStartDistance, float pStopDistance, boolean pCanFly) {
+    public SummonsFollowGoal(TamableAnimal pTamable, double pSpeedModifier, float pStartDistance, float pStopDistance, boolean pCanFly) {
         super(pTamable, pSpeedModifier, pStartDistance, pStopDistance, pCanFly);
         this.tamable = pTamable;
         this.level = pTamable.level();

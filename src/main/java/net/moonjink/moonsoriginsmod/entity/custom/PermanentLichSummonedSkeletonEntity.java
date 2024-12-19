@@ -28,7 +28,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.moonjink.moonsoriginsmod.entity.ai.LichSummonWaterAvoidingRandomStrollGoal;
-import net.moonjink.moonsoriginsmod.entity.ai.LichSummonsFollowGoal;
+import net.moonjink.moonsoriginsmod.entity.ai.SummonsFollowGoal;
 import net.moonjink.moonsoriginsmod.entity.ai.PermanentLichSummonedSkeletonAttackGoal;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,7 +39,7 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME;
     private UUID persistentAngerTarget;
 
-    public static int one_summon_limit;
+    public static int oneSummonLimit;
 
     private static final EntityDataAccessor<Boolean> ATTACKING =
             SynchedEntityData.defineId(PermanentLichSummonedSkeletonEntity.class, EntityDataSerializers.BOOLEAN);
@@ -52,15 +52,15 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal((this)));
         this.goalSelector.addGoal(0,new PermanentLichSummonedSkeletonAttackGoal(this,1.0D, true));
-        this.goalSelector.addGoal(2, new LichSummonsFollowGoal(this,1,10.0F,3.0F, false));
-        this.goalSelector.addGoal(3, new LichSummonWaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(2, new SummonsFollowGoal(this,1.2,10.0F,3.0F, false));
+        this.goalSelector.addGoal(3, new LichSummonWaterAvoidingRandomStrollGoal(this, 0.8));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Mob.class, 8.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(1, new OwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this)).setAlertOthers());
-        this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
+        this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -94,8 +94,8 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
     public void onAddedToWorld() {
         super.onAddedToWorld();
         if (!this.level().isClientSide) {
-            one_summon_limit++;
-            if (one_summon_limit > 1) {
+            oneSummonLimit++;
+            if (oneSummonLimit > 1) {
                 this.discard();
             }
         }
@@ -105,7 +105,7 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
     public void remove(RemovalReason reason) {
         super.remove(reason);
         if (!this.level().isClientSide) {
-            one_summon_limit = Math.max(0, one_summon_limit - 1);
+            oneSummonLimit = Math.max(0, oneSummonLimit - 1);
         }
     }
 
@@ -159,30 +159,6 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
         return null;
-    }
-
-    @Override
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        Item item = itemstack.getItem();
-        if (itemstack.is(Items.BONE)) {
-            if (!pPlayer.getAbilities().instabuild) {
-                itemstack.shrink(1);
-            }
-
-            if (this.random.nextInt(1) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
-                this.tame(pPlayer);
-                this.navigation.stop();
-                this.setTarget((LivingEntity)null);
-                this.level().broadcastEntityEvent(this, (byte)7);
-            } else {
-                this.level().broadcastEntityEvent(this, (byte)6);
-            }
-
-            return InteractionResult.SUCCESS;
-        } else {
-            return super.mobInteract(pPlayer, pHand);
-        }
     }
 
     @Override

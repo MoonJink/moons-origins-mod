@@ -61,6 +61,6 @@
     }
   },
   "textures": {
-    "particle": "item/lich_gauntlet_empty"
+    "particle": "item/lich_gauntlet"
   }
 }

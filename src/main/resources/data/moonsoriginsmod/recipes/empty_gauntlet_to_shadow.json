@@ -5,11 +5,11 @@
       "item": "moonsoriginsmod:lich_gauntlet_empty"
     },
     {
-      "item": "moonsoriginsmod:flame_crystal"
+      "item": "moonsoriginsmod:shadow_crystal"
     }
   ],
   "result": {
-    "item": "moonsoriginsmod:lich_gauntlet_flame",
+    "item": "moonsoriginsmod:lich_gauntlet_shadow",
     "count": 1
   }
 }

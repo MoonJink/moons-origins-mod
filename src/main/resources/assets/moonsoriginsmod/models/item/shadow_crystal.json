@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "moonsoriginsmod:item/flame_crystal"
+    "layer0": "moonsoriginsmod:item/shadow_crystal"
   }
 }

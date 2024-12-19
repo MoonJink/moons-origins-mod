@@ -13,9 +13,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.moonjink.moonsoriginsmod.entity.ModEntities;
-import net.moonjink.moonsoriginsmod.entity.client.LichSummonedSkeletonRenderer;
-import net.moonjink.moonsoriginsmod.entity.client.LichLargeSummonedSkeletonRenderer;
-import net.moonjink.moonsoriginsmod.entity.client.PermanentLichSummonedSkeletonRenderer;
+import net.moonjink.moonsoriginsmod.entity.client.*;
 import net.moonjink.moonsoriginsmod.item.ModItems;
 import org.slf4j.Logger;
 import software.bernie.geckolib.GeckoLib;
@@ -65,6 +63,8 @@ public class Moonsoriginsmod {
             EntityRenderers.register(ModEntities.LICH_SUMMONED_SKELETON.get(), LichSummonedSkeletonRenderer::new);
             EntityRenderers.register(ModEntities.LICH_LARGE_SUMMONED_SKELETON.get(), LichLargeSummonedSkeletonRenderer::new);
             EntityRenderers.register(ModEntities.PERMANENT_LICH_SUMMONED_SKELETON.get(), PermanentLichSummonedSkeletonRenderer::new);
+            EntityRenderers.register(ModEntities.SUMMON_WOLF.get(), SummonWolfRenderer::new);
+            EntityRenderers.register(ModEntities.SUMMON_ANIMAL.get(), SummonAnimalRenderer::new);
         }
     }
 }

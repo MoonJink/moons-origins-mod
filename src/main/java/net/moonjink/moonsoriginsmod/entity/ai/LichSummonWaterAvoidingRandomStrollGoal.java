@@ -23,10 +23,10 @@ public class LichSummonWaterAvoidingRandomStrollGoal extends WaterAvoidingRandom
     @Nullable
     protected Vec3 getPosition() {
         if (this.mob.isInWaterOrBubble()) {
-            Vec3 $$0 = LandRandomPos.getPos(this.mob, 4, 2);
+            Vec3 $$0 = LandRandomPos.getPos(this.mob, 6, 3);
             return $$0 == null ? super.getPosition() : $$0;
         } else {
-            return this.mob.getRandom().nextFloat() >= this.probability ? LandRandomPos.getPos(this.mob, 4, 2) : super.getPosition();
+            return this.mob.getRandom().nextFloat() >= this.probability ? LandRandomPos.getPos(this.mob, 6, 3) : super.getPosition();
         }
     }
 }

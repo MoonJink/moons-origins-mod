@@ -3,7 +3,7 @@ package net.moonjink.moonsoriginsmod.item.custom;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.moonjink.moonsoriginsmod.item.client.LichGauntletFlameRenderer;
+import net.moonjink.moonsoriginsmod.item.client.LichGauntletShadowRenderer;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
@@ -13,10 +13,10 @@ import software.bernie.geckolib.util.RenderUtils;
 
 import java.util.function.Consumer;
 
-public class LichGauntletFlameItem extends Item implements GeoItem {
+public class LichGauntletShadowItem extends Item implements GeoItem {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public LichGauntletFlameItem(Properties pProperties) {
+    public LichGauntletShadowItem(Properties pProperties) {
         super(pProperties);
     }
 
@@ -43,11 +43,11 @@ public class LichGauntletFlameItem extends Item implements GeoItem {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private LichGauntletFlameRenderer renderer;
+            private LichGauntletShadowRenderer renderer;
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
                 if(this.renderer == null) {
-                    renderer = new LichGauntletFlameRenderer();
+                    renderer = new LichGauntletShadowRenderer();
                 }
                 return this.renderer;
             }

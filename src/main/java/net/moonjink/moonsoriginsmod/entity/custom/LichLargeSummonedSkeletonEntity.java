@@ -29,7 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.moonjink.moonsoriginsmod.entity.ai.LichLargeSummonedSkeletonAttackGoal;
 import net.moonjink.moonsoriginsmod.entity.ai.LichSummonWaterAvoidingRandomStrollGoal;
-import net.moonjink.moonsoriginsmod.entity.ai.LichSummonsFollowGoal;
+import net.moonjink.moonsoriginsmod.entity.ai.SummonsFollowGoal;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
@@ -57,16 +57,16 @@ public class LichLargeSummonedSkeletonEntity extends TamableAnimal implements Ne
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal((this)));
-        this.goalSelector.addGoal(0,new LichLargeSummonedSkeletonAttackGoal(this,1, true));
-        this.goalSelector.addGoal(2, new LichSummonsFollowGoal(this,1.3,7.0F,3.0F, false));
+        this.goalSelector.addGoal(0,new LichLargeSummonedSkeletonAttackGoal(this,1.4, true));
+        this.goalSelector.addGoal(2, new SummonsFollowGoal(this,1.3,7.0F,3.5F, false));
         this.goalSelector.addGoal(2, new LichSummonWaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Mob.class, 8.0F));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(1, new OwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this)).setAlertOthers());
-        this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
+        this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -74,7 +74,7 @@ public class LichLargeSummonedSkeletonEntity extends TamableAnimal implements Ne
                 .add(Attributes.MAX_HEALTH,80)
                 .add(Attributes.FOLLOW_RANGE,32)
                 .add(Attributes.ATTACK_DAMAGE, 16)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.5D)
+                .add(Attributes.ATTACK_KNOCKBACK, 0.75D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D)
                 .add(Attributes.ARMOR, 0)
                 .add(Attributes.ARMOR_TOUGHNESS, 0)
@@ -150,30 +150,6 @@ public class LichLargeSummonedSkeletonEntity extends TamableAnimal implements Ne
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
         return null;
-    }
-
-    @Override
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        Item item = itemstack.getItem();
-        if (itemstack.is(Items.BONE)) {
-            if (!pPlayer.getAbilities().instabuild) {
-                itemstack.shrink(1);
-            }
-
-            if (this.random.nextInt(1) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
-                this.tame(pPlayer);
-                this.navigation.stop();
-                this.setTarget((LivingEntity)null);
-                this.level().broadcastEntityEvent(this, (byte)7);
-            } else {
-                this.level().broadcastEntityEvent(this, (byte)6);
-            }
-
-            return InteractionResult.SUCCESS;
-        } else {
-            return super.mobInteract(pPlayer, pHand);
-        }
     }
 
     @Override

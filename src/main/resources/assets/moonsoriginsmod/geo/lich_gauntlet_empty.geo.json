@@ -256,7 +256,7 @@
 					]
 				},
 				{
-					"name": "Flame",
+					"name": "Shadow",
 					"parent": "Gem",
 					"pivot": [0.075, -5.64375, 4.87708],
 					"cubes": [
