@@ -8,6 +8,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.moonjink.moonsoriginsmod.entity.custom.SummonAnimalEntity;
 
 public class SummonAnimalModel<T extends Entity> extends HierarchicalModel<T> {
 
@@ -57,11 +58,15 @@ public class SummonAnimalModel<T extends Entity> extends HierarchicalModel<T> {
 		return LayerDefinition.create(meshdefinition, 48, 32);
 	}
 
-	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
+		if (entity instanceof SummonAnimalEntity summonAnimalEntity && summonAnimalEntity.isSitting()) {
+			this.ghost_animal.setPos(0F, 16.0F, 0F);
+		} else {
+			this.ghost_animal.setPos(0F, 24.0F, 0F);
+		}
 
 		this.leg1.xRot = (float) (Math.cos(limbSwing * 0.6662F + 3.1415927F) * 1.4F * limbSwingAmount);
 		this.leg2.xRot = (float) (Math.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount);

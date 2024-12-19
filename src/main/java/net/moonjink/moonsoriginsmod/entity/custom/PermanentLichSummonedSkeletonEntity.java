@@ -8,8 +8,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -22,11 +20,7 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.ForgeEventFactory;
 import net.moonjink.moonsoriginsmod.entity.ai.LichSummonWaterAvoidingRandomStrollGoal;
 import net.moonjink.moonsoriginsmod.entity.ai.SummonsFollowGoal;
 import net.moonjink.moonsoriginsmod.entity.ai.PermanentLichSummonedSkeletonAttackGoal;
@@ -35,19 +29,24 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implements NeutralMob {
-    private static final UniformInt PERSISTENT_ANGER_TIME;
-    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME;
-    private UUID persistentAngerTarget;
-
-    public static int oneSummonLimit;
+    @Override
+    // Controls all data that MUST be synced
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(ATTACKING, false);
+        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
+    }
 
     private static final EntityDataAccessor<Boolean> ATTACKING =
             SynchedEntityData.defineId(PermanentLichSummonedSkeletonEntity.class, EntityDataSerializers.BOOLEAN);
 
+    // Super class
     public PermanentLichSummonedSkeletonEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
+
+    /*      GOALS       */
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal((this)));
@@ -63,6 +62,8 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
         this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
+
+    /*      ATTRIBUTES      */
     public static AttributeSupplier.Builder createAttributes() {
         return TamableAnimal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH,25)
@@ -74,6 +75,9 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
                 .add(Attributes.ARMOR_TOUGHNESS, 3)
                 .add(Attributes.MOVEMENT_SPEED,0.3D);
     }
+
+
+    /*      ANIMATIONS      */
 
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
@@ -87,25 +91,6 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
 
         if(this.level().isClientSide()) {
             setupAnimationStates(); // Makes animations client-side only
-        }
-    }
-
-    @Override
-    public void onAddedToWorld() {
-        super.onAddedToWorld();
-        if (!this.level().isClientSide) {
-            oneSummonLimit++;
-            if (oneSummonLimit > 1) {
-                this.discard();
-            }
-        }
-    }
-
-    @Override
-    public void remove(RemovalReason reason) {
-        super.remove(reason);
-        if (!this.level().isClientSide) {
-            oneSummonLimit = Math.max(0, oneSummonLimit - 1);
         }
     }
 
@@ -137,13 +122,6 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(ATTACKING, false);
-        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
-    }
-
-    @Override
     protected void updateWalkAnimation(float pPartialTick) {
         float f;
         if(this.getPose() == Pose.STANDING) {
@@ -155,17 +133,21 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
         this.walkAnimation.update(f, 0.2f);
     }
 
-
+    /*      REPRODUCTION      */
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
         return null;
     }
 
+
+    /*      EFFECT IMMUNITY     */
     @Override
     public boolean canBeAffected(MobEffectInstance pPotioneffect) {
         return pPotioneffect.getEffect() != MobEffects.WITHER && super.canBeAffected(pPotioneffect);
     }
 
+
+    /*      SOUNDS      */
     protected SoundEvent getAmbientSound() {
         return SoundEvents.WITHER_SKELETON_AMBIENT;
     }
@@ -181,6 +163,12 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
     protected SoundEvent getStepSound() {
         return SoundEvents.WITHER_SKELETON_STEP;
     }
+
+
+    /*      GROUP ANGER     */// Do not mess with
+    private static final UniformInt PERSISTENT_ANGER_TIME;
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME;
+    private UUID persistentAngerTarget;
 
     @Override
     public int getRemainingPersistentAngerTime() {
@@ -208,5 +196,31 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
     static {
         DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(PermanentLichSummonedSkeletonEntity.class, EntityDataSerializers.INT);
         PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    }
+
+
+    /*      ENTITY LIMIT       */
+    public static int oneSummonLimit = 0;
+
+    @Override
+    // When added to the world increments oneSummonLimit by 1
+    public void onAddedToWorld() {
+        super.onAddedToWorld();
+        if (!this.level().isClientSide) {
+            oneSummonLimit++;
+            // If oneSummonLimit is > 1 it removes the entity -> not kill() because otherwise it makes XP
+            if (oneSummonLimit > 1) {
+                this.discard();
+            }
+        }
+    }
+
+    @Override
+    // Decrements oneSummonLimit after removal
+    public void remove(RemovalReason reason) {
+        super.remove(reason);
+        if (!this.level().isClientSide) {
+            oneSummonLimit = Math.max(0, oneSummonLimit - 1);
+        }
     }
 }

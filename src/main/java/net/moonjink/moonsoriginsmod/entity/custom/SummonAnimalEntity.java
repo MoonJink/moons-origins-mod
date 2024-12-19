@@ -1,5 +1,8 @@
 package net.moonjink.moonsoriginsmod.entity.custom;
 
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -22,14 +25,21 @@ import net.moonjink.moonsoriginsmod.entity.ai.LichSummonWaterAvoidingRandomStrol
 import net.moonjink.moonsoriginsmod.entity.ai.SummonsFollowGoal;
 import org.jetbrains.annotations.Nullable;
 
-
 public class SummonAnimalEntity extends TamableAnimal {
-    public static int oneSummonLimit;
+    @Override
+    // Controls all data that MUST be synced
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(SITTING, false);
+    }
 
+    // Super class
     public SummonAnimalEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
+
+    /*      GOALS      */
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal((this)));
@@ -45,6 +55,8 @@ public class SummonAnimalEntity extends TamableAnimal {
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this)).setAlertOthers());
     }
 
+
+    /*      ATTRIBUTES      */
     public static AttributeSupplier.Builder createAttributes() {
         return TamableAnimal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH,25)
@@ -57,6 +69,8 @@ public class SummonAnimalEntity extends TamableAnimal {
                 .add(Attributes.MOVEMENT_SPEED,0.3D);
     }
 
+
+    /*      ANIMATIONS      */
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
@@ -70,37 +84,13 @@ public class SummonAnimalEntity extends TamableAnimal {
         }
     }
 
-    @Override
-    public void onAddedToWorld() {
-        super.onAddedToWorld();
-        if (!this.level().isClientSide) {
-            oneSummonLimit++;
-            if (oneSummonLimit > 1) {
-                this.discard();
-            }
-        }
-    }
-
-    @Override
-    public void remove(RemovalReason reason) {
-        super.remove(reason);
-        if (!this.level().isClientSide) {
-            oneSummonLimit = Math.max(0, oneSummonLimit - 1);
-        }
-    }
-
     private void setupAnimationStates() {
         if(this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = 60; // Length in ticks of anim
+            this.idleAnimationTimeout = 60; // Length in ticks of idle anim
             this.idleAnimationState.start(this.tickCount);
         } else {
             --this.idleAnimationTimeout;
         }
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
     }
 
     @Override
@@ -116,50 +106,14 @@ public class SummonAnimalEntity extends TamableAnimal {
     }
 
 
+    /*      REPRODUCTION      */
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
         return null;
     }
 
-    @Override
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        Item item = itemstack.getItem();
-        if (this.level().isClientSide) {
-            boolean flag = this.isOwnedBy(pPlayer) || this.isTame() || itemstack.is(Items.BONE) && !this.isTame();
-            return flag ? InteractionResult.CONSUME : InteractionResult.PASS;
-        } else if (this.isTame()) {
-            InteractionResult interactionresult = super.mobInteract(pPlayer, pHand);
-            if ((!interactionresult.consumesAction() || this.isBaby()) && this.isOwnedBy(pPlayer)) {
-                this.setOrderedToSit(!this.isOrderedToSit());
-                this.jumping = false;
-                this.navigation.stop();
-                this.setTarget((LivingEntity)null);
-                return InteractionResult.SUCCESS;
-            } else {
-                return interactionresult;
-            }
-        } else if (itemstack.is(Items.BONE)) {
-            if (!pPlayer.getAbilities().instabuild) {
-                itemstack.shrink(1);
-            }
 
-            if (this.random.nextInt(1) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
-                this.tame(pPlayer);
-                this.navigation.stop();
-                this.setTarget((LivingEntity)null);
-                this.setOrderedToSit(true);
-                this.level().broadcastEntityEvent(this, (byte)7);
-            } else {
-                this.level().broadcastEntityEvent(this, (byte)6);
-            }
-
-            return InteractionResult.SUCCESS;
-        } else {
-            return super.mobInteract(pPlayer, pHand);
-        }
-    }
-
+    /*      SOUNDS      */
     protected SoundEvent getAmbientSound() {
         return SoundEvents.FOX_AMBIENT;
     }
@@ -172,6 +126,9 @@ public class SummonAnimalEntity extends TamableAnimal {
         return SoundEvents.FOX_DEATH;
     }
 
+
+    /*      SITTING & TAMING      */
+    // Makes the mob get up if it's hurt while sitting
     public boolean hurt(DamageSource pSource, float pAmount) {
         if (this.isInvulnerableTo(pSource)) {
             return false;
@@ -179,6 +136,7 @@ public class SummonAnimalEntity extends TamableAnimal {
             Entity entity = pSource.getEntity();
             if (!this.level().isClientSide) {
                 this.setOrderedToSit(false);
+                this.setSitting(false);
             }
 
             if (entity != null && !(entity instanceof Player) && !(entity instanceof AbstractArrow)) {
@@ -186,6 +144,112 @@ public class SummonAnimalEntity extends TamableAnimal {
             }
 
             return super.hurt(pSource, pAmount);
+        }
+    }
+
+    private static final EntityDataAccessor<Boolean> SITTING =
+            SynchedEntityData.defineId(SummonAnimalEntity.class, EntityDataSerializers.BOOLEAN);
+
+    // Variable that checks if sitting -> only used here-ish
+    private boolean isSitting;
+
+    // Makes class that checks if the mob is sitting -> used for most things
+    public boolean isSitting() {
+        return this.entityData.get(SITTING);
+    }
+
+    // Creates class that allows isSitting to be changed
+    public void setSitting(boolean sitting) {
+        this.entityData.set(SITTING, sitting);
+    }
+
+    @Override
+    // Events on mob use
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        // Establishes Item and the current item the player is holding
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        Item item = itemstack.getItem();
+
+        // Creates flags
+        if (this.level().isClientSide) {
+            boolean flag = this.isOwnedBy(pPlayer) || this.isTame() || itemstack.is(Items.BONE) && !this.isTame();
+            return flag ? InteractionResult.CONSUME : InteractionResult.PASS;
+        }
+        // If tamed and used it will sit
+        else if (this.isTame()) {
+            InteractionResult interactionresult = super.mobInteract(pPlayer, pHand);
+            if ((!interactionresult.consumesAction() || this.isBaby()) && this.isOwnedBy(pPlayer)) {
+                // Controls sitting animation
+                this.setSitting(!this.isSitting());
+
+                // Sets the actual sit value to 1
+                this.setOrderedToSit(!this.isOrderedToSit());
+
+                // Stops movement
+                this.jumping = false;
+                this.navigation.stop();
+
+                return InteractionResult.SUCCESS;
+            } else {
+                return interactionresult;
+            }
+        }
+        else if (itemstack.is(Items.BONE) && !this.isOwnedBy(pPlayer)) {
+            if (!pPlayer.getAbilities().instabuild) {
+                itemstack.shrink(1);
+            }
+
+            // Taming event
+            if (this.random.nextInt(1) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+                // Tames animal
+                this.tame(pPlayer);
+
+                // Stops movement
+                this.navigation.stop();
+                this.setTarget((LivingEntity)null);
+                this.setOrderedToSit(true);
+
+                // Sets the sitting animation to true otherwise it inverts the animation -> it is doing animation when not sitting and vice versa
+                this.setSitting(true);
+
+                // Entity event
+                this.level().broadcastEntityEvent(this, (byte)7);
+            } else {
+
+                // Entity event
+                this.level().broadcastEntityEvent(this, (byte)6);
+            }
+
+            return InteractionResult.SUCCESS;
+        } else {
+            // If no condition is fulfilled it does nothing
+            return super.mobInteract(pPlayer, pHand);
+        }
+    }
+
+
+    /*      ENTITY LIMIT       */
+    public static int oneSummonLimit = 0;
+
+    @Override
+    // When added to the world increments oneSummonLimit by 1
+    public void onAddedToWorld() {
+        super.onAddedToWorld();
+        if (!this.level().isClientSide) {
+            oneSummonLimit++;
+            // If oneSummonLimit is > 1 it removes the entity -> not kill() because otherwise it makes XP
+            if (oneSummonLimit > 1) {
+                this.discard();
+            }
+        }
+    }
+
+    @Override
+    // Decrements oneSummonLimit after removal
+    public void remove(RemovalReason reason) {
+        super.remove(reason);
+        if (!this.level().isClientSide) {
+            oneSummonLimit = Math.max(0, oneSummonLimit - 1);
         }
     }
 }

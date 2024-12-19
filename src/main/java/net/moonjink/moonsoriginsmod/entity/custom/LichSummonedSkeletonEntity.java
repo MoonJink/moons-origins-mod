@@ -8,8 +8,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -22,9 +20,7 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.ForgeEventFactory;
 import net.moonjink.moonsoriginsmod.entity.ai.LichSummonWaterAvoidingRandomStrollGoal;
 import net.moonjink.moonsoriginsmod.entity.ai.LichSummonedSkeletonAttackGoal;
 import net.moonjink.moonsoriginsmod.entity.ai.SummonsFollowGoal;
@@ -33,19 +29,25 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 public class LichSummonedSkeletonEntity extends TamableAnimal implements NeutralMob {
-    private int lifespan;
-    private static final UniformInt PERSISTENT_ANGER_TIME;
-    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME;
-    private UUID persistentAngerTarget;
+    @Override
+    // Controls all data that MUST be synced
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(ATTACKING, false);
+        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
+    }
 
     private static final EntityDataAccessor<Boolean> ATTACKING =
             SynchedEntityData.defineId(LichSummonedSkeletonEntity.class, EntityDataSerializers.BOOLEAN);
 
+    // Super class
     public LichSummonedSkeletonEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.lifespan = 20 * 60;
+        this.lifespan = 20 * 60; // Second number is the duration in seconds, * 20 converts to ticks
     }
 
+
+    /*      GOALS       */
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal((this)));
@@ -61,6 +63,8 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
         this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
+
+    /*      ATTRIBUTES       */
     public static AttributeSupplier.Builder createAttributes() {
         return TamableAnimal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH,30)
@@ -72,6 +76,10 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
                 .add(Attributes.ARMOR_TOUGHNESS, 3)
                 .add(Attributes.MOVEMENT_SPEED,0.4D);
     }
+
+
+    /*      ANIMATIONS & LIFESPAN       */
+    private int lifespan; // Creates lifespan -> look at super class for setting the value
 
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
@@ -125,13 +133,6 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(ATTACKING, false);
-        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
-    }
-
-    @Override
     protected void updateWalkAnimation(float pPartialTick) {
         float f;
         if(this.getPose() == Pose.STANDING) {
@@ -144,16 +145,21 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
     }
 
 
+    /*      REPRODUCTION        */
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
         return null;
     }
 
+
+    /*      EFFECT IMMUNITY     */
     @Override
     public boolean canBeAffected(MobEffectInstance pPotioneffect) {
         return pPotioneffect.getEffect() != MobEffects.WITHER && super.canBeAffected(pPotioneffect);
     }
 
+
+    /*      SOUNDS      */
     protected SoundEvent getAmbientSound() {
         return SoundEvents.WITHER_SKELETON_AMBIENT;
     }
@@ -169,6 +175,12 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
     protected SoundEvent getStepSound() {
         return SoundEvents.WITHER_SKELETON_STEP;
     }
+
+
+    /*      GROUP ANGER     */// Do not mess with
+    private static final UniformInt PERSISTENT_ANGER_TIME;
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME;
+    private UUID persistentAngerTarget;
 
     @Override
     public int getRemainingPersistentAngerTime() {
