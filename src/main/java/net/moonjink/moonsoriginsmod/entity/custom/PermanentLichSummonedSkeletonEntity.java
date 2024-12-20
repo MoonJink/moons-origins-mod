@@ -200,26 +200,28 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
 
 
     /*      ENTITY LIMIT       */
-    public static int oneSummonLimit = 0;
+    public static int oneSummonLimit;
 
     @Override
-    // When added to the world increments oneSummonLimit by 1
     public void onAddedToWorld() {
         super.onAddedToWorld();
+
         if (!this.level().isClientSide) {
-            oneSummonLimit++;
-            // If oneSummonLimit is > 1 it removes the entity -> not kill() because otherwise it makes XP
-            if (oneSummonLimit > 1) {
-                this.discard();
+            // Count entities of this type currently in the world
+            long count = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(10000)).size();
+
+            if (count > 1) {
+                this.kill(); // Kill this entity if there's already one
+            } else {
+                oneSummonLimit++;
             }
         }
     }
 
     @Override
-    // Decrements oneSummonLimit after removal
     public void remove(RemovalReason reason) {
         super.remove(reason);
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide && oneSummonLimit > 0) {
             oneSummonLimit = Math.max(0, oneSummonLimit - 1);
         }
     }

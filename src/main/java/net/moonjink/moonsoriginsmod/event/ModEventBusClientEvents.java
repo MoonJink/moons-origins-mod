@@ -37,5 +37,9 @@ public class ModEventBusClientEvents {
                 aoe_levitate_sigil.Provider::new);
         event.registerSpriteSet(ModParticles.DELAYED_TELEPORT_SIGIL.get(),
                 delayed_teleport_sigil.Provider::new);
+        event.registerSpriteSet(ModParticles.PULL_SIGIL.get(),
+                pull_sigil.Provider::new);
+        event.registerSpriteSet(ModParticles.SHROUD_SIGIL.get(),
+                shroud_sigil.Provider::new);
     }
 }

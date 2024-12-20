@@ -14,13 +14,23 @@ public class ModParticles {
 
     public static final RegistryObject<SimpleParticleType> CURSE_SIGIL = PARTICLE_TYPES.register("curse_sigil",
             () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> HEAl_SIGIL = PARTICLE_TYPES.register("heal_sigil",
             () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> SUMMON_SIGIL = PARTICLE_TYPES.register("summon_sigil",
             () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> AOE_LEVITATE_SIGIL = PARTICLE_TYPES.register("aoe_levitate_sigil",
             () -> new SimpleParticleType(false));
+
     public static final RegistryObject<SimpleParticleType> DELAYED_TELEPORT_SIGIL = PARTICLE_TYPES.register("delayed_teleport_sigil",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> PULL_SIGIL = PARTICLE_TYPES.register("pull_sigil",
+            () -> new SimpleParticleType(false));
+
+    public static final RegistryObject<SimpleParticleType> SHROUD_SIGIL = PARTICLE_TYPES.register("shroud_sigil",
             () -> new SimpleParticleType(false));
 
     public static void register(IEventBus eventBus) {

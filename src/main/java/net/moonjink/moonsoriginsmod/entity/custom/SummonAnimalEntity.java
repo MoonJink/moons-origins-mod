@@ -1,5 +1,6 @@
 package net.moonjink.moonsoriginsmod.entity.custom;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -30,7 +31,7 @@ public class SummonAnimalEntity extends TamableAnimal {
     // Controls all data that MUST be synced
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(SITTING, false);
+        this.entityData.define(SITTING, true);
     }
 
     // Super class
@@ -54,7 +55,6 @@ public class SummonAnimalEntity extends TamableAnimal {
         this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this)).setAlertOthers());
     }
-
 
     /*      ATTRIBUTES      */
     public static AttributeSupplier.Builder createAttributes() {
@@ -128,6 +128,17 @@ public class SummonAnimalEntity extends TamableAnimal {
 
 
     /*      SITTING & TAMING      */
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("Sitting", this.isSitting()); // Save state
+    }
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.setSitting(tag.getBoolean("Sitting")); // Load saved state
+    }
+
     // Makes the mob get up if it's hurt while sitting
     public boolean hurt(DamageSource pSource, float pAmount) {
         if (this.isInvulnerableTo(pSource)) {
@@ -229,26 +240,28 @@ public class SummonAnimalEntity extends TamableAnimal {
 
 
     /*      ENTITY LIMIT       */
-    public static int oneSummonLimit = 0;
+    public static int oneSummonLimit;
 
     @Override
-    // When added to the world increments oneSummonLimit by 1
     public void onAddedToWorld() {
         super.onAddedToWorld();
+
         if (!this.level().isClientSide) {
-            oneSummonLimit++;
-            // If oneSummonLimit is > 1 it removes the entity -> not kill() because otherwise it makes XP
-            if (oneSummonLimit > 1) {
-                this.discard();
+            // Count entities of this type currently in the world
+            long count = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(10000)).size();
+
+            if (count > 1) {
+                this.kill(); // Kill this entity if there's already one
+            } else {
+                oneSummonLimit++;
             }
         }
     }
 
     @Override
-    // Decrements oneSummonLimit after removal
     public void remove(RemovalReason reason) {
         super.remove(reason);
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide && oneSummonLimit > 0) {
             oneSummonLimit = Math.max(0, oneSummonLimit - 1);
         }
     }
