@@ -33,28 +33,11 @@ public class Moonsoriginsmod {
         ModItems.register(modEventBus);
         ModParticles.register(modEventBus);
 
-        modEventBus.addListener(this::commonSetup);
         ModEntities.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
-        modEventBus.addListener(this::addCreative);
 
         GeckoLib.initialize();
-    }
-
-    private void commonSetup(final FMLCommonSetupEvent event) {
-
-    }
-
-    // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-
-    }
-
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent

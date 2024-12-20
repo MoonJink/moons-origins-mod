@@ -92,10 +92,11 @@ public class SummonAnimalModel<T extends Entity> extends HierarchicalModel<T> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (entity instanceof SummonAnimalEntity summonAnimalEntity && summonAnimalEntity.isSitting()) {
-			this.animate(((SummonAnimalEntity) entity).idleAnimationState, ModAnimationDefinitions.summon_animal_lay_idle, ageInTicks, 1f);
+			this.animate(summonAnimalEntity.idleAnimationState, ModAnimationDefinitions.summon_animal_lay_idle, ageInTicks, 1f);
 		} else {
 			this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
-			this.animate(((SummonAnimalEntity) entity).idleAnimationState, ModAnimationDefinitions.summon_animal_idle, ageInTicks, 1f);
+            assert entity instanceof SummonAnimalEntity;
+            this.animate(((SummonAnimalEntity) entity).idleAnimationState, ModAnimationDefinitions.summon_animal_idle, ageInTicks, 1f);
 			this.animateWalk(ModAnimationDefinitions.summon_animal_walk, limbSwing, limbSwingAmount, 2f, 1f);
 		}
 	}
