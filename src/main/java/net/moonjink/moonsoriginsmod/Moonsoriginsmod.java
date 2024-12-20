@@ -15,6 +15,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.moonjink.moonsoriginsmod.entity.ModEntities;
 import net.moonjink.moonsoriginsmod.entity.client.*;
 import net.moonjink.moonsoriginsmod.item.ModItems;
+import net.moonjink.moonsoriginsmod.particle.ModParticles;
 import org.slf4j.Logger;
 import software.bernie.geckolib.GeckoLib;
 
@@ -30,6 +31,7 @@ public class Moonsoriginsmod {
         IEventBus modEventBus = context.getModEventBus();
 
         ModItems.register(modEventBus);
+        ModParticles.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         ModEntities.register(modEventBus);
