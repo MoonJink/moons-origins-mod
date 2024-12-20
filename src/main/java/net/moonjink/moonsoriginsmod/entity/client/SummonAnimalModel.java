@@ -90,17 +90,14 @@ public class SummonAnimalModel<T extends Entity> extends HierarchicalModel<T> {
 
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
 		if (entity instanceof SummonAnimalEntity summonAnimalEntity && summonAnimalEntity.isSitting()) {
-			this.ghost_animal.setPos(0F, 16.0F, 0F);
-			this.body.xRot = 0;
+			this.animate(((SummonAnimalEntity) entity).idleAnimationState, ModAnimationDefinitions.summon_animal_lay_idle, ageInTicks, 1f);
 		} else {
-			this.ghost_animal.setPos(0F, 24.0F, 0F);
+			this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+			this.animate(((SummonAnimalEntity) entity).idleAnimationState, ModAnimationDefinitions.summon_animal_idle, ageInTicks, 1f);
+			this.animateWalk(ModAnimationDefinitions.summon_animal_walk, limbSwing, limbSwingAmount, 2f, 1f);
 		}
-
-		this.animate(((SummonAnimalEntity) entity).idleAnimationState, ModAnimationDefinitions.summon_animal_idle, ageInTicks, 1f);
-		this.animateWalk(ModAnimationDefinitions.summon_animal_walk, limbSwing, limbSwingAmount, 1f, 2.5f);
 	}
 
 	private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {

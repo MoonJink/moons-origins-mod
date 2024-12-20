@@ -211,7 +211,7 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
             long count = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(10000)).size();
 
             if (count > 1) {
-                this.kill(); // Kill this entity if there's already one
+                this.discard(); // Kill this entity if there's already one
             } else {
                 oneSummonLimit++;
             }

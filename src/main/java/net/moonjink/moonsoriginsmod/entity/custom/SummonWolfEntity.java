@@ -43,7 +43,7 @@ public class SummonWolfEntity extends TamableAnimal implements NeutralMob {
     // Super class
     public SummonWolfEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.lifespan = 20 * 10; // Second number is the duration in seconds, * 20 converts to ticks
+        this.lifespan = 20 * 30; // Second number is the duration in seconds, * 20 converts to ticks
     }
 
 
@@ -100,7 +100,7 @@ public class SummonWolfEntity extends TamableAnimal implements NeutralMob {
             lifespan--;
 
             if(lifespan <= 0) {
-                this.discard();
+                this.kill();
             }
         }
     }

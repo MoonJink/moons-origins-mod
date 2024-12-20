@@ -30,8 +30,8 @@ public class ModEntities {
                     .sized(0.6f, 0.85f).build("summon_wolf"));
 
     public static final RegistryObject<EntityType<SummonAnimalEntity>> SUMMON_ANIMAL =
-            ENTITY_TYPES.register("summon_animal", () -> EntityType.Builder.of(SummonAnimalEntity::new, MobCategory.MONSTER)
-                    .sized(0.7f, 0.6f).build("summon_animal"));
+            ENTITY_TYPES.register("summon_animal", () -> EntityType.Builder.of(SummonAnimalEntity::new, MobCategory.CREATURE)
+                    .sized(0.7f, 1f).build("summon_animal"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

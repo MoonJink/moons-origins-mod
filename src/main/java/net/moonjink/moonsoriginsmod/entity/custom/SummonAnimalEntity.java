@@ -46,7 +46,7 @@ public class SummonAnimalEntity extends TamableAnimal {
         this.goalSelector.addGoal(0, new FloatGoal((this)));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2, true));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(3, new SummonsFollowGoal(this,1.4,10.0F,3.0F, false));
+        this.goalSelector.addGoal(3, new SummonsFollowGoal(this,1.3,6.0F,3.0F, false));
         this.goalSelector.addGoal(4, new LichSummonWaterAvoidingRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Mob.class, 8.0F));
@@ -61,7 +61,7 @@ public class SummonAnimalEntity extends TamableAnimal {
         return TamableAnimal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH,25)
                 .add(Attributes.FOLLOW_RANGE,35)
-                .add(Attributes.ATTACK_DAMAGE, 3)
+                .add(Attributes.ATTACK_DAMAGE, 4)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.4D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0D)
                 .add(Attributes.ARMOR, 0)
@@ -86,7 +86,7 @@ public class SummonAnimalEntity extends TamableAnimal {
 
     private void setupAnimationStates() {
         if(this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = 60; // Length in ticks of idle anim
+            this.idleAnimationTimeout = 80; // Length in ticks of idle anim
             this.idleAnimationState.start(this.tickCount);
         } else {
             --this.idleAnimationTimeout;
@@ -251,7 +251,7 @@ public class SummonAnimalEntity extends TamableAnimal {
             long count = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(10000)).size();
 
             if (count > 1) {
-                this.kill(); // Kill this entity if there's already one
+                this.discard(); // Discard this entity if there's already one
             } else {
                 oneSummonLimit++;
             }
