@@ -24,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.moonjink.moonsoriginsmod.entity.ai.LichSummonWaterAvoidingRandomStrollGoal;
 import net.moonjink.moonsoriginsmod.entity.ai.SummonsFollowGoal;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SummonAnimalEntity extends TamableAnimal {
@@ -108,7 +109,7 @@ public class SummonAnimalEntity extends TamableAnimal {
 
     /*      REPRODUCTION      */
     @Override
-    public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return null;
     }
 
@@ -118,7 +119,7 @@ public class SummonAnimalEntity extends TamableAnimal {
         return SoundEvents.FOX_AMBIENT;
     }
 
-    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource pDamageSource) {
         return SoundEvents.FOX_HURT;
     }
 
@@ -129,18 +130,18 @@ public class SummonAnimalEntity extends TamableAnimal {
 
     /*      SITTING & TAMING      */
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("Sitting", this.isSitting()); // Save state
     }
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.setSitting(tag.getBoolean("Sitting")); // Load saved state
     }
 
     // Makes the mob get up if it's hurt while sitting
-    public boolean hurt(DamageSource pSource, float pAmount) {
+    public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
         if (this.isInvulnerableTo(pSource)) {
             return false;
         } else {
@@ -176,7 +177,7 @@ public class SummonAnimalEntity extends TamableAnimal {
 
     @Override
     // Events on mob use
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+    public @NotNull InteractionResult mobInteract(Player pPlayer, @NotNull InteractionHand pHand) {
         // Establishes Item and the current item the player is holding
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
@@ -217,7 +218,7 @@ public class SummonAnimalEntity extends TamableAnimal {
 
                 // Stops movement
                 this.navigation.stop();
-                this.setTarget((LivingEntity)null);
+                this.setTarget(null);
                 this.setOrderedToSit(true);
 
                 // Sets the sitting animation to true otherwise it inverts the animation -> it is doing animation when not sitting and vice versa
@@ -259,7 +260,7 @@ public class SummonAnimalEntity extends TamableAnimal {
     }
 
     @Override
-    public void remove(RemovalReason reason) {
+    public void remove(@NotNull RemovalReason reason) {
         super.remove(reason);
         if (!this.level().isClientSide && oneSummonLimit > 0) {
             oneSummonLimit = Math.max(0, oneSummonLimit - 1);

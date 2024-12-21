@@ -5,6 +5,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.moonjink.moonsoriginsmod.entity.custom.LichSummonedSkeletonEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class LichSummonedSkeletonAttackGoal extends MeleeAttackGoal {
     private final LichSummonedSkeletonEntity entity;
@@ -25,7 +26,7 @@ public class LichSummonedSkeletonAttackGoal extends MeleeAttackGoal {
     }
 
     @Override
-    protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
+    protected void checkAndPerformAttack(@NotNull LivingEntity pEnemy, double pDistToEnemySqr) {
         if (isEnemyWithinAttackDistance(pEnemy, pDistToEnemySqr)) {
             shouldCountTillNextAttack = true;
 

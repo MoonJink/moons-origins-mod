@@ -24,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.moonjink.moonsoriginsmod.entity.ai.LichLargeSummonedSkeletonAttackGoal;
 import net.moonjink.moonsoriginsmod.entity.ai.LichSummonWaterAvoidingRandomStrollGoal;
 import net.moonjink.moonsoriginsmod.entity.ai.SummonsFollowGoal;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
@@ -148,7 +149,7 @@ public class LichLargeSummonedSkeletonEntity extends TamableAnimal implements Ne
 
     /*      REPRODUCTION        */
     @Override
-    public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return null;
     }
 
@@ -156,7 +157,7 @@ public class LichLargeSummonedSkeletonEntity extends TamableAnimal implements Ne
     /*      EFFECTS     */
     @Override
     // Effect on hit
-    public boolean doHurtTarget(Entity pEntity) {
+    public boolean doHurtTarget(@NotNull Entity pEntity) {
         if (!super.doHurtTarget(pEntity)) {
             return false;
         } else {
@@ -180,7 +181,7 @@ public class LichLargeSummonedSkeletonEntity extends TamableAnimal implements Ne
         return SoundEvents.RAVAGER_AMBIENT;
     }
 
-    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource pDamageSource) {
         return SoundEvents.RAVAGER_HURT;
     }
 
@@ -200,7 +201,7 @@ public class LichLargeSummonedSkeletonEntity extends TamableAnimal implements Ne
 
     @Override
     public int getRemainingPersistentAngerTime() {
-        return (Integer)this.entityData.get(DATA_REMAINING_ANGER_TIME);
+        return this.entityData.get(DATA_REMAINING_ANGER_TIME);
     }
 
     @Override

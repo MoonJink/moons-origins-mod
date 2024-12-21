@@ -21,5 +21,9 @@ public class ModEventBusEvents {
         event.put(ModEntities.SUMMON_WOLF.get(), SummonWolfEntity.createAttributes().build());
 
         event.put(ModEntities.SUMMON_ANIMAL.get(), SummonAnimalEntity.createAttributes().build());
+
+        event.put(ModEntities.DELAYED_TELEPORT_SIGIL.get(), DelayedTeleportSigilEntity.createAttributes().build());
+
+        event.put(ModEntities.AOE_LEVITATE_SIGIL.get(), AOELevitateSigilEntity.createAttributes().build());
     }
 }

@@ -24,6 +24,7 @@ import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.moonjink.moonsoriginsmod.entity.ai.*;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
@@ -147,7 +148,7 @@ public class SummonWolfEntity extends TamableAnimal implements NeutralMob {
 
     /*      REPRODUCTION      */
     @Override
-    public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return null;
     }
 
@@ -164,7 +165,7 @@ public class SummonWolfEntity extends TamableAnimal implements NeutralMob {
         return SoundEvents.WOLF_AMBIENT;
     }
 
-    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource pDamageSource) {
         return SoundEvents.WOLF_HURT;
     }
 
@@ -184,7 +185,7 @@ public class SummonWolfEntity extends TamableAnimal implements NeutralMob {
 
     @Override
     public int getRemainingPersistentAngerTime() {
-        return (Integer)this.entityData.get(DATA_REMAINING_ANGER_TIME);
+        return this.entityData.get(DATA_REMAINING_ANGER_TIME);
     }
 
     @Override

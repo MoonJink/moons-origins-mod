@@ -6,6 +6,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
@@ -51,17 +52,17 @@ public enum ModArmourMaterials implements ArmorMaterial {
     }
 
     @Override
-    public SoundEvent getEquipSound() {
+    public @NotNull SoundEvent getEquipSound() {
         return this.equipSound;
     }
 
     @Override
-    public Ingredient getRepairIngredient() {
+    public @NotNull Ingredient getRepairIngredient() {
         return this.repairIngredient.get();
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return Moonsoriginsmod.MOD_ID + ":" + this.name;
     }
 

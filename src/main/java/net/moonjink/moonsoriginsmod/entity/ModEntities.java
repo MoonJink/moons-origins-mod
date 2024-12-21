@@ -33,6 +33,14 @@ public class ModEntities {
             ENTITY_TYPES.register("summon_animal", () -> EntityType.Builder.of(SummonAnimalEntity::new, MobCategory.CREATURE)
                     .sized(0.7f, 1f).build("summon_animal"));
 
+    public static final RegistryObject<EntityType<DelayedTeleportSigilEntity>> DELAYED_TELEPORT_SIGIL =
+            ENTITY_TYPES.register("delayed_teleport_sigil", () -> EntityType.Builder.of(DelayedTeleportSigilEntity::new, MobCategory.MISC)
+                    .sized(4f, 0.1f).build("delayed_teleport_sigil"));
+
+    public static final RegistryObject<EntityType<AOELevitateSigilEntity>> AOE_LEVITATE_SIGIL =
+            ENTITY_TYPES.register("aoe_levitate_sigil", () -> EntityType.Builder.of(AOELevitateSigilEntity::new, MobCategory.MISC)
+                    .sized(4f, 0.05f).build("aoe_levitate_sigil"));
+
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }

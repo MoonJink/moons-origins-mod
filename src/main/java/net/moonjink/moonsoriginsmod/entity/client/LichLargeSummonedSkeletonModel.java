@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
 import net.moonjink.moonsoriginsmod.entity.animations.ModAnimationDefinitions;
 import net.moonjink.moonsoriginsmod.entity.custom.LichLargeSummonedSkeletonEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class LichLargeSummonedSkeletonModel<T extends Entity> extends HierarchicalModel<T> {
 
@@ -79,7 +80,7 @@ public class LichLargeSummonedSkeletonModel<T extends Entity> extends Hierarchic
 
 
 	@Override
-	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
@@ -95,12 +96,12 @@ public class LichLargeSummonedSkeletonModel<T extends Entity> extends Hierarchic
 		this.animate(((LichLargeSummonedSkeletonEntity) entity).attackAnimationState, ModAnimationDefinitions.ravager_attack, ageInTicks, 1f);
 	}
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		LichLargeSummonedSkeleton.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
-	public ModelPart root() {
+	public @NotNull ModelPart root() {
 		return LichLargeSummonedSkeleton;
 	}
 }

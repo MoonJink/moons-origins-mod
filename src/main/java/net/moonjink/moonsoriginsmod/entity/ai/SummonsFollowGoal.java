@@ -122,7 +122,7 @@ public class SummonsFollowGoal extends FollowOwnerGoal {
         } else if (!this.canTeleportTo(new BlockPos(pX, pY, pZ))) {
             return false;
         } else {
-            this.tamable.moveTo((double)pX + 0.5, (double)pY, (double)pZ + 0.5, this.tamable.getYRot(), this.tamable.getXRot());
+            this.tamable.moveTo((double)pX + 0.5, pY, (double)pZ + 0.5, this.tamable.getYRot(), this.tamable.getXRot());
             this.navigation.stop();
             return true;
         }

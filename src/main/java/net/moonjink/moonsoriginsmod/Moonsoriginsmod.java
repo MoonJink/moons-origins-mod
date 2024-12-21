@@ -2,15 +2,14 @@ package net.moonjink.moonsoriginsmod;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.moonjink.moonsoriginsmod.entity.ModEntities;
 import net.moonjink.moonsoriginsmod.entity.client.*;
@@ -27,8 +26,8 @@ public class Moonsoriginsmod {
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public Moonsoriginsmod(FMLJavaModLoadingContext context) {
-        IEventBus modEventBus = context.getModEventBus();
+    public Moonsoriginsmod() {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModItems.register(modEventBus);
         ModParticles.register(modEventBus);
@@ -38,6 +37,16 @@ public class Moonsoriginsmod {
         MinecraftForge.EVENT_BUS.register(this);
 
         GeckoLib.initialize();
+        modEventBus.addListener(this::addCreative);
+    }
+
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if(event.getTabKey() == CreativeModeTabs.COMBAT) {
+            event.accept(ModItems.LICH_GAUNTLET);
+            event.accept(ModItems.LICH_GAUNTLET_EMPTY);
+            event.accept(ModItems.LICH_GAUNTLET_SHADOW);
+            event.accept(ModItems.LICH_GAUNTLET_SOUL);
+        }
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
@@ -50,6 +59,8 @@ public class Moonsoriginsmod {
             EntityRenderers.register(ModEntities.PERMANENT_LICH_SUMMONED_SKELETON.get(), PermanentLichSummonedSkeletonRenderer::new);
             EntityRenderers.register(ModEntities.SUMMON_WOLF.get(), SummonWolfRenderer::new);
             EntityRenderers.register(ModEntities.SUMMON_ANIMAL.get(), SummonAnimalRenderer::new);
+            EntityRenderers.register(ModEntities.DELAYED_TELEPORT_SIGIL.get(), DelayedTeleportSigilRenderer::new);
+            EntityRenderers.register(ModEntities.AOE_LEVITATE_SIGIL.get(), AOELevitateSigilRenderer::new);
         }
     }
 }

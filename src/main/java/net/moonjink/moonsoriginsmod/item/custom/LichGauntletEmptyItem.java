@@ -14,7 +14,7 @@ import software.bernie.geckolib.util.RenderUtils;
 import java.util.function.Consumer;
 
 public class LichGauntletEmptyItem extends Item implements GeoItem {
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+    private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     public LichGauntletEmptyItem(Properties pProperties) {
         super(pProperties);
@@ -27,7 +27,7 @@ public class LichGauntletEmptyItem extends Item implements GeoItem {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController(this, "controller", 0, this::predicate));
+        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
     }
 
     @Override

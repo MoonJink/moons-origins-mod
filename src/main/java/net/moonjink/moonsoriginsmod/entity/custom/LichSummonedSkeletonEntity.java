@@ -24,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.moonjink.moonsoriginsmod.entity.ai.LichSummonWaterAvoidingRandomStrollGoal;
 import net.moonjink.moonsoriginsmod.entity.ai.LichSummonedSkeletonAttackGoal;
 import net.moonjink.moonsoriginsmod.entity.ai.SummonsFollowGoal;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
@@ -147,7 +148,7 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
 
     /*      REPRODUCTION        */
     @Override
-    public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+    public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return null;
     }
 
@@ -164,7 +165,7 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
         return SoundEvents.WITHER_SKELETON_AMBIENT;
     }
 
-    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource pDamageSource) {
         return SoundEvents.WITHER_SKELETON_HURT;
     }
 
@@ -184,7 +185,7 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
 
     @Override
     public int getRemainingPersistentAngerTime() {
-        return (Integer)this.entityData.get(DATA_REMAINING_ANGER_TIME);
+        return this.entityData.get(DATA_REMAINING_ANGER_TIME);
     }
 
     @Override

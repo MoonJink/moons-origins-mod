@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
 import net.moonjink.moonsoriginsmod.entity.custom.SummonAnimalEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class SummonAnimalRenderer extends MobRenderer<SummonAnimalEntity, SummonAnimalModel<SummonAnimalEntity>> {
     private static final ResourceLocation summon_animal_texture = new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/summon_animal.png");
@@ -15,12 +16,12 @@ public class SummonAnimalRenderer extends MobRenderer<SummonAnimalEntity, Summon
     }
 
     @Override
-    public ResourceLocation getTextureLocation(SummonAnimalEntity summonAnimalEntity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull SummonAnimalEntity summonAnimalEntity) {
         return summon_animal_texture;
     }
 
     @Override
-    protected RenderType getRenderType(SummonAnimalEntity summonAnimalEntity, boolean bodyVisible, boolean translucent, boolean glowing) {
+    protected RenderType getRenderType(@NotNull SummonAnimalEntity summonAnimalEntity, boolean bodyVisible, boolean translucent, boolean glowing) {
         return RenderType.entityTranslucent(summon_animal_texture);
     }
 }

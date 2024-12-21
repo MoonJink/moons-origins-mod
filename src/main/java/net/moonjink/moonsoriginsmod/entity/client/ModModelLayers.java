@@ -19,4 +19,10 @@ public class ModModelLayers {
 
     public static final ModelLayerLocation SUMMON_ANIMAL_LAYER = new ModelLayerLocation(
             new ResourceLocation(Moonsoriginsmod.MOD_ID, "summon_animal_layer"), "main");
+
+    public static final ModelLayerLocation DELAYED_TELEPORT_SIGIL_LAYER = new ModelLayerLocation(
+            new ResourceLocation(Moonsoriginsmod.MOD_ID, "delayed_teleport_sigil_layer"), "main");
+
+    public static final ModelLayerLocation AOE_LEVITATE_LAYER = new ModelLayerLocation(
+            new ResourceLocation(Moonsoriginsmod.MOD_ID, "aoe_levitate_layer"), "main");
 }

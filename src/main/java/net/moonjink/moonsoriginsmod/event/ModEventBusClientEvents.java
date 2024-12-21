@@ -24,21 +24,31 @@ public class ModEventBusClientEvents {
         event.registerLayerDefinition(ModModelLayers.SUMMON_WOLF_LAYER, SummonWolfModel::createBodyLayer);
 
         event.registerLayerDefinition(ModModelLayers.SUMMON_ANIMAL_LAYER, SummonAnimalModel::createBodyLayer);
+
+        event.registerLayerDefinition(ModModelLayers.DELAYED_TELEPORT_SIGIL_LAYER, DelayedTeleportSigilModel::createBodyLayer);
+
+        event.registerLayerDefinition(ModModelLayers.AOE_LEVITATE_LAYER, AOELevitateSigilModel::createBodyLayer);
     }
     @SubscribeEvent
     public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(ModParticles.CURSE_SIGIL.get(),
                 curse_sigil.Provider::new);
+
         event.registerSpriteSet(ModParticles.HEAl_SIGIL.get(),
                 heal_sigil.Provider::new);
+
         event.registerSpriteSet(ModParticles.SUMMON_SIGIL.get(),
                 summon_sigil.Provider::new);
+
         event.registerSpriteSet(ModParticles.AOE_LEVITATE_SIGIL.get(),
                 aoe_levitate_sigil.Provider::new);
+
         event.registerSpriteSet(ModParticles.DELAYED_TELEPORT_SIGIL.get(),
                 delayed_teleport_sigil.Provider::new);
+
         event.registerSpriteSet(ModParticles.PULL_SIGIL.get(),
                 pull_sigil.Provider::new);
+
         event.registerSpriteSet(ModParticles.SHROUD_SIGIL.get(),
                 shroud_sigil.Provider::new);
     }

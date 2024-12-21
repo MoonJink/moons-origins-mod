@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
 import net.moonjink.moonsoriginsmod.entity.custom.LichLargeSummonedSkeletonEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class LichLargeSummonedSkeletonRenderer extends MobRenderer<LichLargeSummonedSkeletonEntity, LichLargeSummonedSkeletonModel<LichLargeSummonedSkeletonEntity>> {
     public LichLargeSummonedSkeletonRenderer(EntityRendererProvider.Context pContext) {
@@ -14,12 +15,12 @@ public class LichLargeSummonedSkeletonRenderer extends MobRenderer<LichLargeSumm
     }
 
     @Override
-    public ResourceLocation getTextureLocation(LichLargeSummonedSkeletonEntity lichLargeSummonedSkeletonEntity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull LichLargeSummonedSkeletonEntity lichLargeSummonedSkeletonEntity) {
         return new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/lich_large_summoned_skeleton.png");
     }
 
     @Override
-    public void render(LichLargeSummonedSkeletonEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
+    public void render(@NotNull LichLargeSummonedSkeletonEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, @NotNull MultiBufferSource pBuffer, int pPackedLight) {
         // Scale of creature, effects hitbox size too
         pPoseStack.scale(1F, 1F, 1F);
         super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
