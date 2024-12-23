@@ -17,7 +17,7 @@ public class aoe_levitate_sigil extends TextureSheetParticle {
         this.yd = 0;
         this.zd = 0;
         this.quadSize = 1F;
-        this.lifetime = 60;
+        this.lifetime = 40;
         this.setSpriteFromAge(spriteSet);
 
         this.rCol = 1f;

@@ -22,7 +22,7 @@ public class DelayedTeleportSigilRenderer extends MobRenderer<DelayedTeleportSig
     @Override
     public void render(@NotNull DelayedTeleportSigilEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, @NotNull MultiBufferSource pBuffer, int pPackedLight) {
         // Scale of creature, effects hitbox size too
-        pPoseStack.scale(0.5F, 0.5F, 0.5F);
+        pPoseStack.scale(1F, 1F, 1F);
         super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
     }
 }

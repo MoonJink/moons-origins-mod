@@ -25,5 +25,9 @@ public class ModEventBusEvents {
         event.put(ModEntities.DELAYED_TELEPORT_SIGIL.get(), DelayedTeleportSigilEntity.createAttributes().build());
 
         event.put(ModEntities.AOE_LEVITATE_SIGIL.get(), AOELevitateSigilEntity.createAttributes().build());
+
+        event.put(ModEntities.HEAL_SIGIL.get(), HealSigilEntity.createAttributes().build());
+
+        event.put(ModEntities.PULL_SIGIL.get(), PullSigilEntity.createAttributes().build());
     }
 }

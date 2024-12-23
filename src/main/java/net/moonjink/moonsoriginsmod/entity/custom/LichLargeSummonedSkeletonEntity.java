@@ -44,7 +44,7 @@ public class LichLargeSummonedSkeletonEntity extends TamableAnimal implements Ne
     // Super class
     public LichLargeSummonedSkeletonEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.lifespan = 20 * 45;// Second number is the duration in seconds, * 20 converts to ticks
+        this.lifespan = 20 * 30;// Second number is the duration in seconds, * 20 converts to ticks
     }
 
 

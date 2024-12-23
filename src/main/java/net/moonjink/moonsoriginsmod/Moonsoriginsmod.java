@@ -61,6 +61,8 @@ public class Moonsoriginsmod {
             EntityRenderers.register(ModEntities.SUMMON_ANIMAL.get(), SummonAnimalRenderer::new);
             EntityRenderers.register(ModEntities.DELAYED_TELEPORT_SIGIL.get(), DelayedTeleportSigilRenderer::new);
             EntityRenderers.register(ModEntities.AOE_LEVITATE_SIGIL.get(), AOELevitateSigilRenderer::new);
+            EntityRenderers.register(ModEntities.HEAL_SIGIL.get(), HealSigilRenderer::new);
+            EntityRenderers.register(ModEntities.PULL_SIGIL.get(), PullSigilRenderer::new);
         }
     }
 }

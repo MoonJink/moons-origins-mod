@@ -44,7 +44,7 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
     // Super class
     public LichSummonedSkeletonEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.lifespan = 20 * 60; // Second number is the duration in seconds, * 20 converts to ticks
+        this.lifespan = 20 * 120; // Second number is the duration in seconds, * 20 converts to ticks
     }
 
 
@@ -68,9 +68,9 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
     /*      ATTRIBUTES       */
     public static AttributeSupplier.Builder createAttributes() {
         return TamableAnimal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH,30)
+                .add(Attributes.MAX_HEALTH,40)
                 .add(Attributes.FOLLOW_RANGE,35)
-                .add(Attributes.ATTACK_DAMAGE, 10)
+                .add(Attributes.ATTACK_DAMAGE, 8)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.4D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0)
                 .add(Attributes.ARMOR, 3)

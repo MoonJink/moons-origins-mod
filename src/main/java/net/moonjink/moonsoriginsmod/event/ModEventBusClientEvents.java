@@ -28,6 +28,10 @@ public class ModEventBusClientEvents {
         event.registerLayerDefinition(ModModelLayers.DELAYED_TELEPORT_SIGIL_LAYER, DelayedTeleportSigilModel::createBodyLayer);
 
         event.registerLayerDefinition(ModModelLayers.AOE_LEVITATE_LAYER, AOELevitateSigilModel::createBodyLayer);
+
+        event.registerLayerDefinition(ModModelLayers.HEAL_LAYER, HealSigilModel::createBodyLayer);
+
+        event.registerLayerDefinition(ModModelLayers.PULL_LAYER, PullSigilModel::createBodyLayer);
     }
     @SubscribeEvent
     public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {

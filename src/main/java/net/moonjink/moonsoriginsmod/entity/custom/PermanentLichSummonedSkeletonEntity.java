@@ -67,7 +67,7 @@ public class PermanentLichSummonedSkeletonEntity extends TamableAnimal implement
     /*      ATTRIBUTES      */
     public static AttributeSupplier.Builder createAttributes() {
         return TamableAnimal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH,25)
+                .add(Attributes.MAX_HEALTH,35)
                 .add(Attributes.FOLLOW_RANGE,35)
                 .add(Attributes.ATTACK_DAMAGE, 6)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.4D)

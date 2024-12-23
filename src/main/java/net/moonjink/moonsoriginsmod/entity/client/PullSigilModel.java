@@ -9,15 +9,15 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
 import net.moonjink.moonsoriginsmod.entity.animations.ModAnimationDefinitions;
 import net.moonjink.moonsoriginsmod.entity.custom.AOELevitateSigilEntity;
-import net.moonjink.moonsoriginsmod.entity.custom.DelayedTeleportSigilEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.PullSigilEntity;
 
-public class AOELevitateSigilModel<T extends Entity> extends HierarchicalModel<T> {
+public class PullSigilModel<T extends Entity> extends HierarchicalModel<T> {
 
 	private final ModelPart main_particle;
 	private final ModelPart rotate;
 	private final ModelPart head;
 
-	public AOELevitateSigilModel(ModelPart root) {
+	public PullSigilModel(ModelPart root) {
 		this.main_particle = root.getChild("main_particle");
 		this.rotate = this.main_particle.getChild("rotate");
 		this.head = this.main_particle.getChild("head");
@@ -39,7 +39,7 @@ public class AOELevitateSigilModel<T extends Entity> extends HierarchicalModel<T
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(((AOELevitateSigilEntity) entity).idleAnimationState, ModAnimationDefinitions.sigle_fade_out, ageInTicks, 1f);
+		this.animate(((PullSigilEntity) entity).idleAnimationState, ModAnimationDefinitions.sigle_fade_out, ageInTicks, 1f);
 	}
 
 	@Override

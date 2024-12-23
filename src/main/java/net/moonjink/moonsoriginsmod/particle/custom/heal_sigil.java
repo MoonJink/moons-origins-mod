@@ -17,7 +17,7 @@ public class heal_sigil extends TextureSheetParticle {
         this.yd = 0;
         this.zd = 0;
         this.quadSize = 0.5F;
-        this.lifetime = 20;
+        this.lifetime = 40;
         this.setSpriteFromAge(spriteSet);
 
         this.rCol = 1f;

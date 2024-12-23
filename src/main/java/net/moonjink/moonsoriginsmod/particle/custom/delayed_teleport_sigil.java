@@ -17,13 +17,12 @@ public class delayed_teleport_sigil extends TextureSheetParticle {
         this.yd = 0;
         this.zd = 0;
         this.quadSize = 1F;
-        this.lifetime = 60;
+        this.lifetime = 40;
         this.setSpriteFromAge(spriteSet);
 
         this.rCol = 1f;
         this.gCol = 1f;
         this.bCol = 1f;
-
     }
 
     @Override
@@ -33,7 +32,7 @@ public class delayed_teleport_sigil extends TextureSheetParticle {
     }
 
     private void fadeOut() {
-        this.alpha = (-(1/(float)lifetime) * age + 1);
+        this.alpha = 0.9f;
     }
 
     @Override
