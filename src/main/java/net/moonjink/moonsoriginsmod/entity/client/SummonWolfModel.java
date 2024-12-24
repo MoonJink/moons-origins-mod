@@ -74,14 +74,22 @@ public class SummonWolfModel<T extends Entity> extends HierarchicalModel<T> {
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+
+		if (entity instanceof SummonWolfEntity summonWolfEntity && summonWolfEntity.isSitting()) {
+			this.animate(summonWolfEntity.idleAnimationState, ModAnimationDefinitions.summon_wolf_lay_idle, ageInTicks, 1f);
+		}
+		else {
+			this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+
+			assert entity instanceof SummonWolfEntity;
+			this.animate(((SummonWolfEntity) entity).idleAnimationState, ModAnimationDefinitions.summon_wolf_idle, ageInTicks, 1f);
+		}
 
 		this.leg1.xRot = (float) (Math.cos(limbSwing * 0.6662F + 3.1415927F) * 1.4F * limbSwingAmount);
 		this.leg2.xRot = (float) (Math.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount);
 		this.leg3.xRot = (float) (Math.cos(limbSwing * 0.6662F + 3.1415927F) * 1.4F * limbSwingAmount);
 		this.leg4.xRot = (float) (Math.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount);
 
-		this.animate(((SummonWolfEntity) entity).idleAnimationState, ModAnimationDefinitions.summon_wolf_idle, ageInTicks, 1f);
 		this.animate(((SummonWolfEntity) entity).attackAnimationState, ModAnimationDefinitions.summon_wolf_attack, ageInTicks, 1f);
 	}
 

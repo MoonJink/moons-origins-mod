@@ -1,5 +1,6 @@
 package net.moonjink.moonsoriginsmod.entity.custom;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -8,6 +9,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -17,12 +20,18 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.moonjink.moonsoriginsmod.entity.ai.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -36,6 +45,7 @@ public class SummonWolfEntity extends TamableAnimal implements NeutralMob {
         super.defineSynchedData();
         this.entityData.define(ATTACKING, false);
         this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
+        this.entityData.define(SITTING, true);
     }
 
     private static final EntityDataAccessor<Boolean> ATTACKING =
@@ -44,7 +54,6 @@ public class SummonWolfEntity extends TamableAnimal implements NeutralMob {
     // Super class
     public SummonWolfEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.lifespan = 20 * 30; // Second number is the duration in seconds, * 20 converts to ticks
     }
 
 
@@ -52,7 +61,8 @@ public class SummonWolfEntity extends TamableAnimal implements NeutralMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal((this)));
-        this.goalSelector.addGoal(0,new SummonWolfAttackGoal(this,1.2D, true));
+        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(1,new SummonWolfAttackGoal(this,1.2D, true));
         this.goalSelector.addGoal(2, new SummonsFollowGoal(this,1.2,8.0F,3.0F, false));
         this.goalSelector.addGoal(3, new LichSummonWaterAvoidingRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -68,19 +78,18 @@ public class SummonWolfEntity extends TamableAnimal implements NeutralMob {
     /*      ATTRIBUTES      */
     public static AttributeSupplier.Builder createAttributes() {
         return TamableAnimal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH,20)
+                .add(Attributes.MAX_HEALTH,10)
                 .add(Attributes.FOLLOW_RANGE,35)
-                .add(Attributes.ATTACK_DAMAGE, 4)
+                .add(Attributes.ATTACK_DAMAGE, 3)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.4D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.1D)
-                .add(Attributes.ARMOR, 1)
-                .add(Attributes.ARMOR_TOUGHNESS, 1)
+                .add(Attributes.ARMOR, 0)
+                .add(Attributes.ARMOR_TOUGHNESS, 0)
                 .add(Attributes.MOVEMENT_SPEED,0.3D);
     }
 
 
-    /*      ANIMATIONS & LIFESPAN      */
-    private int lifespan; // Creates lifespan -> look at super class for setting the value
+    /*      ANIMATIONS      */
 
     public final AnimationState attackAnimationState = new AnimationState();
     public int attackAnimationTimeout = 0;
@@ -95,14 +104,6 @@ public class SummonWolfEntity extends TamableAnimal implements NeutralMob {
 
         if(this.level().isClientSide()) {
             setupAnimationStates(); // Makes animations client-side only
-        }
-        // Lowers lifespan every tick
-        if(!this.level().isClientSide) {
-            lifespan--;
-
-            if(lifespan <= 0) {
-                this.kill();
-            }
         }
     }
 
@@ -209,5 +210,142 @@ public class SummonWolfEntity extends TamableAnimal implements NeutralMob {
     static {
         DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(SummonWolfEntity.class, EntityDataSerializers.INT);
         PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    }
+
+    /*      SITTING & TAMING      */
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("Sitting", this.isSitting()); // Save state
+    }
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.setSitting(tag.getBoolean("Sitting")); // Load saved state
+    }
+
+    // Makes the mob get up if it's hurt while sitting
+    public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
+        if (this.isInvulnerableTo(pSource)) {
+            return false;
+        } else {
+            Entity entity = pSource.getEntity();
+            if (!this.level().isClientSide) {
+                this.setOrderedToSit(false);
+                this.setSitting(false);
+            }
+
+            if (entity != null && !(entity instanceof Player) && !(entity instanceof AbstractArrow)) {
+                pAmount = (pAmount + 1.0F) / 2.0F;
+            }
+
+            return super.hurt(pSource, pAmount);
+        }
+    }
+
+    private static final EntityDataAccessor<Boolean> SITTING =
+            SynchedEntityData.defineId(SummonWolfEntity.class, EntityDataSerializers.BOOLEAN);
+
+    // Variable that checks if sitting -> only used here-ish
+    private boolean isSitting;
+
+    // Makes class that checks if the mob is sitting -> used for most things
+    public boolean isSitting() {
+        return this.entityData.get(SITTING);
+    }
+
+    // Creates class that allows isSitting to be changed
+    public void setSitting(boolean sitting) {
+        this.entityData.set(SITTING, sitting);
+    }
+
+    @Override
+    // Events on mob use
+    public @NotNull InteractionResult mobInteract(Player pPlayer, @NotNull InteractionHand pHand) {
+        // Establishes Item and the current item the player is holding
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        Item item = itemstack.getItem();
+
+        // Creates flags
+        if (this.level().isClientSide) {
+            boolean flag = this.isOwnedBy(pPlayer) || this.isTame() || itemstack.is(Items.BONE) && !this.isTame();
+            return flag ? InteractionResult.CONSUME : InteractionResult.PASS;
+        }
+        // If tamed and used it will sit
+        else if (this.isTame()) {
+            InteractionResult interactionresult = super.mobInteract(pPlayer, pHand);
+            if ((!interactionresult.consumesAction() || this.isBaby()) && this.isOwnedBy(pPlayer)) {
+                // Controls sitting animation
+                this.setSitting(!this.isSitting());
+
+                // Sets the actual sit value to 1
+                this.setOrderedToSit(!this.isOrderedToSit());
+
+                // Stops movement
+                this.jumping = false;
+                this.navigation.stop();
+
+                return InteractionResult.SUCCESS;
+            } else {
+                return interactionresult;
+            }
+        }
+        else if (itemstack.is(Items.BONE) && !this.isOwnedBy(pPlayer)) {
+            if (!pPlayer.getAbilities().instabuild) {
+                itemstack.shrink(1);
+            }
+
+            // Taming event
+            if (this.random.nextInt(1) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+                // Tames animal
+                this.tame(pPlayer);
+
+                // Stops movement
+                this.navigation.stop();
+                this.setTarget(null);
+                this.setOrderedToSit(true);
+
+                // Sets the sitting animation to true otherwise it inverts the animation -> it is doing animation when not sitting and vice versa
+                this.setSitting(true);
+
+                // Entity event
+                this.level().broadcastEntityEvent(this, (byte)7);
+            } else {
+
+                // Entity event
+                this.level().broadcastEntityEvent(this, (byte)6);
+            }
+
+            return InteractionResult.SUCCESS;
+        } else {
+            // If no condition is fulfilled it does nothing
+            return super.mobInteract(pPlayer, pHand);
+        }
+    }
+    /*      ENTITY LIMIT       */
+    public static int oneSummonLimit;
+
+    @Override
+    public void onAddedToWorld() {
+        super.onAddedToWorld();
+
+        if (!this.level().isClientSide) {
+            // Count entities of this type currently in the world
+            long count = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(10000)).size();
+
+            if (count > 2) {
+                this.discard(); // Discard this entity if there's already one
+            } else {
+                oneSummonLimit++;
+            }
+        }
+    }
+
+    @Override
+    public void remove(@NotNull RemovalReason reason) {
+        super.remove(reason);
+        if (!this.level().isClientSide && oneSummonLimit > 0) {
+            oneSummonLimit = Math.max(0, oneSummonLimit - 1);
+        }
     }
 }

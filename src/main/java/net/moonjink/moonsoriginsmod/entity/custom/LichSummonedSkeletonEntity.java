@@ -68,7 +68,7 @@ public class LichSummonedSkeletonEntity extends TamableAnimal implements Neutral
     /*      ATTRIBUTES       */
     public static AttributeSupplier.Builder createAttributes() {
         return TamableAnimal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH,40)
+                .add(Attributes.MAX_HEALTH,25)
                 .add(Attributes.FOLLOW_RANGE,35)
                 .add(Attributes.ATTACK_DAMAGE, 8)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.4D)

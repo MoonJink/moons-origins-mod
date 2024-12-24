@@ -68,10 +68,10 @@ public class LichLargeSummonedSkeletonEntity extends TamableAnimal implements Ne
     /*      ATTRIBUTES      */
     public static AttributeSupplier.Builder createAttributes() {
         return TamableAnimal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH,80)
+                .add(Attributes.MAX_HEALTH,60)
                 .add(Attributes.FOLLOW_RANGE,32)
                 .add(Attributes.ATTACK_DAMAGE, 16)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.75D)
+                .add(Attributes.ATTACK_KNOCKBACK, 2D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.75D)
                 .add(Attributes.ARMOR, 0)
                 .add(Attributes.ARMOR_TOUGHNESS, 0)
