@@ -1,15 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " # ",
+    "X#X",
     "#A#",
-    " # "
+    "X#X"
   ],
   "key": {
     "#": {
       "item": "minecraft:bone"
     },
     "A": {
+      "item": "minecraft:amethyst_block"
+    },
+    "X": {
       "item": "minecraft:amethyst_shard"
     }
   },

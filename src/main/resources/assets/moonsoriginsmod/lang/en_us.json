@@ -2,11 +2,15 @@
   "entity.moonsoriginsmod.lich_summoned_skeleton": "§bLich-borne",
   "entity.moonsoriginsmod.lich_large_summoned_skeleton": "§bLich-borne ravager",
   "entity.moonsoriginsmod.permanent_lich_summoned_skeleton": "§dLich-borne loyalist",
-  "entity.moonsoriginsmod.summon_wolf": "§bLich-borne Wolf",
+  "entity.moonsoriginsmod.summon_wolf": "§bLich-borne wolf",
   "entity.moonsoriginsmod.summon_animal": "§bGox",
 
 
   "item.moonsoriginsmod.lich_borne_iron": "§eLich-borne iron",
+
+  "item.moonsoriginsmod.empty_blood_vial": "§cEmpty blood vial",
+  "item.moonsoriginsmod.lesser_blood_vial": "§4Vial of lesser blood",
+  "item.moonsoriginsmod.greater_blood_vial": "§4Vial of greater blood",
 
   "item.moonsoriginsmod.lich_gauntlet": "§dGauntlet of thaumaturgy §r§7§o(fully imbued)",
   "item.moonsoriginsmod.lich_gauntlet_empty": "§dGauntlet of thaumaturgy §r§7§o(empty)",
