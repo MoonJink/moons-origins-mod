@@ -31,4 +31,7 @@ public class ModModelLayers {
 
     public static final ModelLayerLocation PULL_LAYER = new ModelLayerLocation(
             new ResourceLocation(Moonsoriginsmod.MOD_ID, "pull_layer"), "main");
+
+    public static final ModelLayerLocation CUSTOM_PLAYER_ENTITY_LAYER = new ModelLayerLocation(
+            new ResourceLocation(Moonsoriginsmod.MOD_ID, "custom_player_entity_layer"), "main");
 }

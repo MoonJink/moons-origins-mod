@@ -29,5 +29,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.HEAL_SIGIL.get(), HealSigilEntity.createAttributes().build());
 
         event.put(ModEntities.PULL_SIGIL.get(), PullSigilEntity.createAttributes().build());
+
+        event.put(ModEntities.CUSTOM_PLAYER_ENTITY.get(), CustomPlayerEntity.createAttributes().build());
     }
 }

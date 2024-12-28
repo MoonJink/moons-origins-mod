@@ -49,6 +49,10 @@ public class ModEntities {
             ENTITY_TYPES.register("pull_sigil", () -> EntityType.Builder.of(PullSigilEntity::new, MobCategory.MISC)
                     .sized(2f, 0.01f).build("pull_sigil"));
 
+    public static final RegistryObject<EntityType<CustomPlayerEntity>> CUSTOM_PLAYER_ENTITY =
+            ENTITY_TYPES.register("custom_player_entity", () -> EntityType.Builder.of(CustomPlayerEntity::new, MobCategory.MISC)
+                    .sized(0.25f, 1f).build("custom_player_entity"));
+
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }

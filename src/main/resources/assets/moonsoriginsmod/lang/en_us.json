@@ -4,6 +4,7 @@
   "entity.moonsoriginsmod.permanent_lich_summoned_skeleton": "§dLich-borne loyalist",
   "entity.moonsoriginsmod.summon_wolf": "§bLich-borne wolf",
   "entity.moonsoriginsmod.summon_animal": "§bGox",
+  "entity.moonsoriginsmod.custom_player_entity": "§cCaspian Baby",
 
 
   "item.moonsoriginsmod.lich_borne_iron": "§eLich-borne iron",
@@ -20,5 +21,8 @@
   "item.moonsoriginsmod.shadow_crystal": "§8Crystal of Shadow",
   "item.moonsoriginsmod.soul_crystal": "§bCrystal of Soul",
   "item.moonsoriginsmod.arcane_crystal": "§dCrystal of Arcane",
-  "item.moonsoriginsmod.water_crystal": "§9Crystal of Aquae"
+  "item.moonsoriginsmod.water_crystal": "§9Crystal of Aquae",
+
+
+  "item.moonsoriginsmod.vampire_dagger": "§4Vampire's Dagger"
 }

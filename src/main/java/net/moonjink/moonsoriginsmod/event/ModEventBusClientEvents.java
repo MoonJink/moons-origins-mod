@@ -32,6 +32,8 @@ public class ModEventBusClientEvents {
         event.registerLayerDefinition(ModModelLayers.HEAL_LAYER, HealSigilModel::createBodyLayer);
 
         event.registerLayerDefinition(ModModelLayers.PULL_LAYER, PullSigilModel::createBodyLayer);
+
+        event.registerLayerDefinition(ModModelLayers.CUSTOM_PLAYER_ENTITY_LAYER, CustomPlayerEntityModel::createBodyLayer);
     }
     @SubscribeEvent
     public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {

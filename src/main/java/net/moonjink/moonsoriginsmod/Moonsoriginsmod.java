@@ -63,6 +63,7 @@ public class Moonsoriginsmod {
             EntityRenderers.register(ModEntities.AOE_LEVITATE_SIGIL.get(), AOELevitateSigilRenderer::new);
             EntityRenderers.register(ModEntities.HEAL_SIGIL.get(), HealSigilRenderer::new);
             EntityRenderers.register(ModEntities.PULL_SIGIL.get(), PullSigilRenderer::new);
+            EntityRenderers.register(ModEntities.CUSTOM_PLAYER_ENTITY.get(), CustomPlayerEntityRenderer::new);
         }
     }
 }

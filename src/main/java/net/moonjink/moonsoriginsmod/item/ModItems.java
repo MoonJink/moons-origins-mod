@@ -1,9 +1,7 @@
 package net.moonjink.moonsoriginsmod.item;
 
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BottleItem;
-import net.minecraft.world.item.HoneyBottleItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -41,7 +39,8 @@ public class ModItems {
             () -> new BloodVialItem(new Item.Properties().stacksTo(4)
                     .food((new FoodProperties.Builder()).nutrition(0).saturationMod(0).build())));
 
-
+    public static final RegistryObject<Item> VAMPIRE_DAGGER = ITEMS.register("vampire_dagger",
+            () -> new SwordItem(Tiers.IRON, 3, -2.4F, new Item.Properties().stacksTo(1)));
 
 
     public static final RegistryObject<Item> LICH_GAUNTLET = ITEMS.register("lich_gauntlet",
