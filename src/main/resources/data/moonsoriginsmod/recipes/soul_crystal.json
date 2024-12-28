@@ -1,5 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "show_notification": true,
   "pattern": [
     "X#X",
     "#A#",

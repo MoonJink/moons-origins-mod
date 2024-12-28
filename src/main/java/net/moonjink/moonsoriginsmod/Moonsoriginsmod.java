@@ -46,6 +46,19 @@ public class Moonsoriginsmod {
             event.accept(ModItems.LICH_GAUNTLET_EMPTY);
             event.accept(ModItems.LICH_GAUNTLET_SHADOW);
             event.accept(ModItems.LICH_GAUNTLET_SOUL);
+            event.accept(ModItems.VAMPIRE_DAGGER);
+        }
+        if(event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
+            event.accept(ModItems.EMPTY_BLOOD_VIAL);
+            event.accept(ModItems.LESSER_BLOOD_VIAL);
+            event.accept(ModItems.GREATER_BLOOD_VIAL);
+        }
+        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(ModItems.ARCANE_CRYSTAL);
+            event.accept(ModItems.SHADOW_CRYSTAL);
+            event.accept(ModItems.SOUL_CRYSTAL);
+            event.accept(ModItems.WATER_CRYSTAL);
+            event.accept(ModItems.LICH_BORNE_IRON);
         }
     }
 
