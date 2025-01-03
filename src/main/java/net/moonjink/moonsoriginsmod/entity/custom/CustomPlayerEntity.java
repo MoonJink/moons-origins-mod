@@ -25,7 +25,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.moonjink.moonsoriginsmod.entity.ai.CustomPlayerEntityAttackGoal;
 import net.moonjink.moonsoriginsmod.entity.ai.LichSummonWaterAvoidingRandomStrollGoal;
-import net.moonjink.moonsoriginsmod.entity.ai.LichSummonedSkeletonAttackGoal;
 import net.moonjink.moonsoriginsmod.entity.ai.SummonsFollowGoal;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -47,7 +46,6 @@ public class CustomPlayerEntity extends TamableAnimal implements NeutralMob {
     // Super class
     public CustomPlayerEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.lifespan = 20 * 30; // Second number is the duration in seconds, * 20 converts to ticks
     }
 
 
@@ -82,8 +80,7 @@ public class CustomPlayerEntity extends TamableAnimal implements NeutralMob {
     }
 
 
-    /*      ANIMATIONS & LIFESPAN       */
-    private int lifespan; // Creates lifespan -> look at super class for setting the value
+    /*      ANIMATIONS       */
 
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
@@ -97,15 +94,6 @@ public class CustomPlayerEntity extends TamableAnimal implements NeutralMob {
 
         if(this.level().isClientSide()) {
             setupAnimationStates(); // Makes animations client-side only
-        }
-
-        // Lowers lifespan every tick
-        if(!this.level().isClientSide) {
-            lifespan--;
-
-            if(lifespan <= 0) {
-                this.kill();
-            }
         }
     }
 
