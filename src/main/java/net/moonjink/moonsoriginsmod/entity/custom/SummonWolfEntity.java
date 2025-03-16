@@ -331,7 +331,7 @@ public class SummonWolfEntity extends TamableAnimal implements NeutralMob {
 
         if (!this.level().isClientSide) {
             // Count entities of this type currently in the world
-            long count = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(10000)).size();
+            long count = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(500)).size();
 
             if (count > 2) {
                 this.discard(); // Discard this entity if there's already one

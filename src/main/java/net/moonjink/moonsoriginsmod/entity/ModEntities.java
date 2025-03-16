@@ -53,6 +53,14 @@ public class ModEntities {
             ENTITY_TYPES.register("custom_player_entity", () -> EntityType.Builder.of(CustomPlayerEntity::new, MobCategory.MISC)
                     .sized(0.25f, 1f).build("custom_player_entity"));
 
+    public static final RegistryObject<EntityType<HallucinationEntityWide>> HALLUCINATION_ENTITY_WIDE =
+            ENTITY_TYPES.register("hallucination_entity_wide", () -> EntityType.Builder.of(HallucinationEntityWide::new, MobCategory.MISC)
+                    .sized(0.6f, 2f).build("hallucination_entity_wide"));
+
+    public static final RegistryObject<EntityType<HallucinationEntitySlim>> HALLUCINATION_ENTITY_SLIM =
+            ENTITY_TYPES.register("hallucination_entity_slim", () -> EntityType.Builder.of(HallucinationEntitySlim::new, MobCategory.MISC)
+                    .sized(0.6f, 2f).build("hallucination_entity_slim"));
+
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }

@@ -31,5 +31,9 @@ public class ModEventBusEvents {
         event.put(ModEntities.PULL_SIGIL.get(), PullSigilEntity.createAttributes().build());
 
         event.put(ModEntities.CUSTOM_PLAYER_ENTITY.get(), CustomPlayerEntity.createAttributes().build());
+
+        event.put(ModEntities.HALLUCINATION_ENTITY_WIDE.get(), HallucinationEntityWide.createAttributes().build());
+
+        event.put(ModEntities.HALLUCINATION_ENTITY_SLIM.get(), HallucinationEntitySlim.createAttributes().build());
     }
 }

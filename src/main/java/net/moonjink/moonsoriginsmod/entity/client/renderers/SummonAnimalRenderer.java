@@ -1,10 +1,12 @@
-package net.moonjink.moonsoriginsmod.entity.client;
+package net.moonjink.moonsoriginsmod.entity.client.renderers;
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
+import net.moonjink.moonsoriginsmod.entity.client.ModModelLayers;
+import net.moonjink.moonsoriginsmod.entity.client.models.SummonAnimalModel;
 import net.moonjink.moonsoriginsmod.entity.custom.SummonAnimalEntity;
 import org.jetbrains.annotations.NotNull;
 

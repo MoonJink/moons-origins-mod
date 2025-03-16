@@ -34,4 +34,10 @@ public class ModModelLayers {
 
     public static final ModelLayerLocation CUSTOM_PLAYER_ENTITY_LAYER = new ModelLayerLocation(
             new ResourceLocation(Moonsoriginsmod.MOD_ID, "custom_player_entity_layer"), "main");
+
+    public static final ModelLayerLocation HALLUCINATION_LAYER_WIDE = new ModelLayerLocation(
+            new ResourceLocation(Moonsoriginsmod.MOD_ID, "hallucination_layer_wide"), "main");
+
+    public static final ModelLayerLocation HALLUCINATION_LAYER_SLIM = new ModelLayerLocation(
+            new ResourceLocation(Moonsoriginsmod.MOD_ID, "hallucination_layer_slim"), "main");
 }

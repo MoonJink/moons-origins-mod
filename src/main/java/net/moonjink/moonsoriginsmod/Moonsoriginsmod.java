@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.moonjink.moonsoriginsmod.entity.ModEntities;
-import net.moonjink.moonsoriginsmod.entity.client.*;
+import net.moonjink.moonsoriginsmod.entity.client.renderers.*;
 import net.moonjink.moonsoriginsmod.item.ModItems;
 import net.moonjink.moonsoriginsmod.particle.ModParticles;
 import org.slf4j.Logger;
@@ -77,6 +77,8 @@ public class Moonsoriginsmod {
             EntityRenderers.register(ModEntities.HEAL_SIGIL.get(), HealSigilRenderer::new);
             EntityRenderers.register(ModEntities.PULL_SIGIL.get(), PullSigilRenderer::new);
             EntityRenderers.register(ModEntities.CUSTOM_PLAYER_ENTITY.get(), CustomPlayerEntityRenderer::new);
+            EntityRenderers.register(ModEntities.HALLUCINATION_ENTITY_WIDE.get(), HallucinationRendererWide::new);
+            EntityRenderers.register(ModEntities.HALLUCINATION_ENTITY_SLIM.get(), HallucinationRendererSlim::new);
         }
     }
 }

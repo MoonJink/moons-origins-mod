@@ -1,4 +1,4 @@
-package net.moonjink.moonsoriginsmod.entity.client;// Made with Blockbench 4.11.2
+package net.moonjink.moonsoriginsmod.entity.client.models;// Made with Blockbench 4.11.2
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -8,7 +8,6 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
 import net.moonjink.moonsoriginsmod.entity.animations.ModAnimationDefinitions;
-import net.moonjink.moonsoriginsmod.entity.custom.AOELevitateSigilEntity;
 import net.moonjink.moonsoriginsmod.entity.custom.HealSigilEntity;
 
 public class HealSigilModel<T extends Entity> extends HierarchicalModel<T> {

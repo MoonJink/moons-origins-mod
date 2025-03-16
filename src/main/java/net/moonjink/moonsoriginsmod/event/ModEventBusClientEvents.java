@@ -7,6 +7,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
 import net.moonjink.moonsoriginsmod.entity.client.*;
+import net.moonjink.moonsoriginsmod.entity.client.models.*;
 import net.moonjink.moonsoriginsmod.particle.ModParticles;
 import net.moonjink.moonsoriginsmod.particle.custom.*;
 
@@ -34,6 +35,10 @@ public class ModEventBusClientEvents {
         event.registerLayerDefinition(ModModelLayers.PULL_LAYER, PullSigilModel::createBodyLayer);
 
         event.registerLayerDefinition(ModModelLayers.CUSTOM_PLAYER_ENTITY_LAYER, CustomPlayerEntityModel::createBodyLayer);
+
+        event.registerLayerDefinition(ModModelLayers.HALLUCINATION_LAYER_WIDE, HallucinationModelWide::createBodyLayer);
+
+        event.registerLayerDefinition(ModModelLayers.HALLUCINATION_LAYER_SLIM, HallucinationModelSlim::createBodyLayer);
     }
     @SubscribeEvent
     public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {

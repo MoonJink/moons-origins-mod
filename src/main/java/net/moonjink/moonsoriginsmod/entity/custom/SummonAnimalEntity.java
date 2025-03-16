@@ -45,8 +45,8 @@ public class SummonAnimalEntity extends TamableAnimal {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal((this)));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2, true));
-        this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2, true));
         this.goalSelector.addGoal(3, new SummonsFollowGoal(this,1.3,6.0F,3.0F, false));
         this.goalSelector.addGoal(4, new LichSummonWaterAvoidingRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -249,7 +249,7 @@ public class SummonAnimalEntity extends TamableAnimal {
 
         if (!this.level().isClientSide) {
             // Count entities of this type currently in the world
-            long count = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(10000)).size();
+            long count = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(500)).size();
 
             if (count > 1) {
                 this.discard(); // Discard this entity if there's already one

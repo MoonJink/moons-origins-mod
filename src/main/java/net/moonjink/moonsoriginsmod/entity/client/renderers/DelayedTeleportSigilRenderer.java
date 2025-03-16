@@ -1,4 +1,4 @@
-package net.moonjink.moonsoriginsmod.entity.client;
+package net.moonjink.moonsoriginsmod.entity.client.renderers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -6,6 +6,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
+import net.moonjink.moonsoriginsmod.entity.client.ModModelLayers;
+import net.moonjink.moonsoriginsmod.entity.client.models.DelayedTeleportSigilModel;
 import net.moonjink.moonsoriginsmod.entity.custom.DelayedTeleportSigilEntity;
 import org.jetbrains.annotations.NotNull;
 

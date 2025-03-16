@@ -1,4 +1,4 @@
-package net.moonjink.moonsoriginsmod.entity.client;// Made with Blockbench 4.11.2
+package net.moonjink.moonsoriginsmod.entity.client.models;// Made with Blockbench 4.11.2
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

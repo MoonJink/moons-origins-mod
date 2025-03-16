@@ -1,4 +1,4 @@
-package net.moonjink.moonsoriginsmod.entity.client;// Made with Blockbench 4.11.2
+package net.moonjink.moonsoriginsmod.entity.client.models;// Made with Blockbench 4.11.2
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -9,12 +9,12 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.moonjink.moonsoriginsmod.entity.animations.ModAnimationDefinitions;
-import net.moonjink.moonsoriginsmod.entity.custom.LichSummonedSkeletonEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.PermanentLichSummonedSkeletonEntity;
 import org.jetbrains.annotations.NotNull;
 
-public class LichSummonedSkeletonModel<T extends Entity> extends HierarchicalModel<T> {
+public class PermanentLichSummonedSkeletonModel<T extends Entity> extends HierarchicalModel<T> {
 
-	private final ModelPart lichsummonedskeleton;
+	private final ModelPart permanentlichsummonedskeleton;
 	private final ModelPart torso;
 	private final ModelPart upper_torso;
 	private final ModelPart upper_torso_main;
@@ -31,9 +31,9 @@ public class LichSummonedSkeletonModel<T extends Entity> extends HierarchicalMod
 	private final ModelPart right_leg;
 	private final ModelPart lower_right_leg;
 
-	public LichSummonedSkeletonModel(ModelPart root) {
-		this.lichsummonedskeleton = root.getChild("lichsummonedskeleton");
-		this.torso = this.lichsummonedskeleton.getChild("torso");
+	public PermanentLichSummonedSkeletonModel(ModelPart root) {
+		this.permanentlichsummonedskeleton = root.getChild("permanentlichsummonedskeleton");
+		this.torso = this.permanentlichsummonedskeleton.getChild("torso");
 		this.upper_torso = this.torso.getChild("upper_torso");
 		this.upper_torso_main = this.upper_torso.getChild("upper_torso_main");
 		this.neck = this.upper_torso.getChild("neck");
@@ -54,9 +54,9 @@ public class LichSummonedSkeletonModel<T extends Entity> extends HierarchicalMod
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition lichsummonedskeleton = partdefinition.addOrReplaceChild("lichsummonedskeleton", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 22.975F, 0.0F, -0.0349F, 0.0F, 0.0F));
+		PartDefinition permanentlichsummonedskeleton = partdefinition.addOrReplaceChild("permanentlichsummonedskeleton", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 22.975F, 0.0F, -0.0349F, 0.0F, 0.0F));
 
-		PartDefinition torso = lichsummonedskeleton.addOrReplaceChild("torso", CubeListBuilder.create(), PartPose.offset(0.0F, -17.5F, 0.0F));
+		PartDefinition torso = permanentlichsummonedskeleton.addOrReplaceChild("torso", CubeListBuilder.create(), PartPose.offset(0.0F, -17.5F, 0.0F));
 
 		PartDefinition upper_torso = torso.addOrReplaceChild("upper_torso", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.3927F, 0.0F, 0.0F));
 
@@ -68,6 +68,10 @@ public class LichSummonedSkeletonModel<T extends Entity> extends HierarchicalMod
 				.texOffs(32, 38).addBox(-4.0F, 1.75F, -2.5F, 8.0F, 1.0F, 3.0F, new CubeDeformation(0.0F))
 				.texOffs(33, 1).addBox(-4.0F, -5.25F, -2.475F, 8.0F, 8.0F, 7.0F, new CubeDeformation(0.5F))
 				.texOffs(24, 4).addBox(-1.0F, -1.125F, -3.25F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -2.75F, -2.25F, -0.0436F, 0.0F, 0.0F));
+
+		PartDefinition cube_r1 = head.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(2, 16).addBox(0.0F, -5.0F, -1.0F, 1.0F, 7.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.75F, -2.225F, 0.0F, 2.9302F, 1.2716F, -3.0159F));
+
+		PartDefinition cube_r2 = head.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(2, 16).addBox(0.0F, -5.0F, -1.0F, 1.0F, 7.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.5F, -2.5F, 0.0F, 0.3927F, 1.2654F, 0.0F));
 
 		PartDefinition left_arm = upper_torso.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).addBox(0.0F, 1.0F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F))
 				.texOffs(28, 8).addBox(-0.5F, 0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.25F, -6.0F, 0.0F, -0.336F, -0.1251F, -0.4202F));
@@ -104,9 +108,9 @@ public class LichSummonedSkeletonModel<T extends Entity> extends HierarchicalMod
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
-		this.animate(((LichSummonedSkeletonEntity) entity).idleAnimationState, ModAnimationDefinitions.smallIdle, ageInTicks, 1f);
+		this.animate(((PermanentLichSummonedSkeletonEntity) entity).idleAnimationState, ModAnimationDefinitions.smallIdle, ageInTicks, 1f);
 		this.animateWalk(ModAnimationDefinitions.smallRun, limbSwing, limbSwingAmount, 2f, 2.5f);
-		this.animate(((LichSummonedSkeletonEntity) entity).attackAnimationState, ModAnimationDefinitions.smallAttack, ageInTicks, 1f);
+		this.animate(((PermanentLichSummonedSkeletonEntity) entity).attackAnimationState, ModAnimationDefinitions.permAttack, ageInTicks, 1f);
 	}
 
 	private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -119,11 +123,11 @@ public class LichSummonedSkeletonModel<T extends Entity> extends HierarchicalMod
 
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		lichsummonedskeleton.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		permanentlichsummonedskeleton.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
 	public @NotNull ModelPart root() {
-		return lichsummonedskeleton;
+		return permanentlichsummonedskeleton;
 	}
 }

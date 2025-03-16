@@ -42,7 +42,7 @@ public class SummonsFollowGoal extends FollowOwnerGoal {
         this.canFly = pCanFly;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         if (!(pTamable.getNavigation() instanceof GroundPathNavigation) && !(pTamable.getNavigation() instanceof FlyingPathNavigation)) {
-            throw new IllegalArgumentException("Unsupported mob type for FollowOwnerGoal");
+            throw new IllegalArgumentException("Unsupported mob type for SummonsFollowGoal");
         }
     }
 
