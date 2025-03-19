@@ -80,7 +80,7 @@ public class HallucinationModelSlim<T extends Entity> extends HierarchicalModel<
 
 		PartDefinition rightArm = hallucination_entity.addOrReplaceChild("rightArm", CubeListBuilder.create(), PartPose.offset(-5.0F, -22.0F, 0.0F));
 
-		PartDefinition right_arm = rightArm.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(41, 16).addBox(-2.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition right_arm = rightArm.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 16).addBox(-2.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition right_sleeve = rightArm.addOrReplaceChild("right_sleeve", CubeListBuilder.create().texOffs(41, 32).addBox(-2.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 

@@ -5,6 +5,8 @@
   "entity.moonsoriginsmod.summon_wolf": "§bLich-borne wolf",
   "entity.moonsoriginsmod.summon_animal": "§bGox",
   "entity.moonsoriginsmod.custom_player_entity": "§cCaspian Baby",
+  "entity.moonsoriginsmod.hallucination_entity_slim": "Hallucination",
+  "entity.moonsoriginsmod.hallucination_entity_wide": "Hallucination",
 
 
   "item.moonsoriginsmod.lich_borne_iron": "§eLich-borne iron",
@@ -23,6 +25,14 @@
   "item.moonsoriginsmod.arcane_crystal": "§dCrystal of Arcane",
   "item.moonsoriginsmod.water_crystal": "§9Crystal of Aquae",
 
+  "item.moonsoriginsmod.antipsychotics": "§eAntipsychotics",
+  "item.moonsoriginsmod.antidepressants": "§eAntidepressants",
+  "item.moonsoriginsmod.lithobid": "§eLithobid",
+  "item.moonsoriginsmod.empty_pill_bottle": "Empty pill bottle",
 
-  "item.moonsoriginsmod.vampire_dagger": "§4Vampire's Dagger"
+
+  "item.moonsoriginsmod.vampire_dagger": "§4Vampire's Dagger",
+
+  "effect.moonsoriginsmod.medicated": "Medicated",
+  "effect.moonsoriginsmod.manic": "Manic"
 }

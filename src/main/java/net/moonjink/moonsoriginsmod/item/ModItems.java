@@ -31,6 +31,9 @@ public class ModItems {
     public static final RegistryObject<Item> EMPTY_BLOOD_VIAL = ITEMS.register("empty_blood_vial",
             () -> new Item(new Item.Properties().stacksTo(8)));
 
+    public static final RegistryObject<Item> EMPTY_PILL_BOTTLE = ITEMS.register("empty_pill_bottle",
+            () -> new Item(new Item.Properties().stacksTo(8)));
+
     public static final RegistryObject<Item> LESSER_BLOOD_VIAL = ITEMS.register("lesser_blood_vial",
             () -> new BloodVialItem(new Item.Properties().stacksTo(8)
                     .food((new FoodProperties.Builder()).nutrition(0).saturationMod(0).build())));
@@ -38,6 +41,19 @@ public class ModItems {
     public static final RegistryObject<Item> GREATER_BLOOD_VIAL = ITEMS.register("greater_blood_vial",
             () -> new BloodVialItem(new Item.Properties().stacksTo(4)
                     .food((new FoodProperties.Builder()).nutrition(0).saturationMod(0).build())));
+
+
+    public static final RegistryObject<Item> ANTIPSYCHOTICS = ITEMS.register("antipsychotics",
+            () -> new MedicationItem(new Item.Properties().stacksTo(8)
+                    .food((new FoodProperties.Builder()).nutrition(0).saturationMod(0).build())));;
+
+    public static final RegistryObject<Item> ANTIDEPRESSANTS = ITEMS.register("antidepressants",
+            () -> new AntiDepressantItem(new Item.Properties().stacksTo(8)
+                    .food((new FoodProperties.Builder()).nutrition(0).saturationMod(0).build())));;
+
+    public static final RegistryObject<Item> LITHOBID = ITEMS.register("lithobid",
+            () -> new MedicationItem(new Item.Properties().stacksTo(8)
+                    .food((new FoodProperties.Builder()).nutrition(0).saturationMod(0).build())));;
 
     public static final RegistryObject<Item> VAMPIRE_DAGGER = ITEMS.register("vampire_dagger",
             () -> new SwordItem(Tiers.IRON, 3, -2.4F, new Item.Properties().stacksTo(1)));

@@ -2,7 +2,6 @@ package net.moonjink.moonsoriginsmod.entity.custom;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.level.Level;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
 
@@ -12,9 +11,9 @@ import java.util.Random;
 public class HallucinationEntitySlim extends HallucinationEntity {
     private final ResourceLocation texture;
 
-    public HallucinationEntitySlim(EntityType<? extends PathfinderMob> pEntityType, Level pLevel) {
+    public HallucinationEntitySlim(EntityType<? extends HallucinationEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.texture = getRandomSkin();
+        this.texture = selectSkin();
     }
 
     public ResourceLocation getSkinTexture() {
@@ -37,7 +36,15 @@ public class HallucinationEntitySlim extends HallucinationEntity {
             new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/hallucinations/slim/hallucinated_drowned.png")
     );
 
-    private ResourceLocation getRandomSkin() {
-        return SKIN_TEXTURES.get(new Random().nextInt(SKIN_TEXTURES.size()));
+    private ResourceLocation selectSkin() {
+        int test = random.nextInt(2);
+
+        if(test == 1) {
+            return SKIN_TEXTURES.get(new Random().nextInt(SKIN_TEXTURES.size()));
+        }
+        else if (test == 0) {
+            return new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/hallucinations/shadow.png");
+        }
+        return null;
     }
 }

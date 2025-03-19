@@ -11,10 +11,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.moonjink.moonsoriginsmod.effect.ModEffects;
 import net.moonjink.moonsoriginsmod.entity.ModEntities;
 import net.moonjink.moonsoriginsmod.entity.client.renderers.*;
 import net.moonjink.moonsoriginsmod.item.ModItems;
 import net.moonjink.moonsoriginsmod.particle.ModParticles;
+import net.moonjink.moonsoriginsmod.sound.ModSounds;
 import org.slf4j.Logger;
 import software.bernie.geckolib.GeckoLib;
 
@@ -34,6 +36,10 @@ public class Moonsoriginsmod {
 
         ModEntities.register(modEventBus);
 
+        ModEffects.register(modEventBus);
+
+        ModSounds.register(modEventBus);
+
         MinecraftForge.EVENT_BUS.register(this);
 
         GeckoLib.initialize();
@@ -52,6 +58,10 @@ public class Moonsoriginsmod {
             event.accept(ModItems.EMPTY_BLOOD_VIAL);
             event.accept(ModItems.LESSER_BLOOD_VIAL);
             event.accept(ModItems.GREATER_BLOOD_VIAL);
+            event.accept(ModItems.ANTIPSYCHOTICS);
+            event.accept(ModItems.ANTIDEPRESSANTS);
+            event.accept(ModItems.LITHOBID);
+            event.accept(ModItems.EMPTY_PILL_BOTTLE);
         }
         if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModItems.ARCANE_CRYSTAL);

@@ -17,7 +17,7 @@ public class HallucinationRendererWide extends MobRenderer<HallucinationEntityWi
         super(pContext, new HallucinationModelWide<>(pContext.bakeLayer(ModModelLayers.HALLUCINATION_LAYER_WIDE)), 0.5f);
     }
 
-    public ResourceLocation getTextureLocation(HallucinationEntityWide pEntity) {
+    public @NotNull ResourceLocation getTextureLocation(HallucinationEntityWide pEntity) {
         return pEntity.getSkinTexture();
     }
 
