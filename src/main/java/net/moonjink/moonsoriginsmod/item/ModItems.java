@@ -34,6 +34,8 @@ public class ModItems {
     public static final RegistryObject<Item> EMPTY_PILL_BOTTLE = ITEMS.register("empty_pill_bottle",
             () -> new Item(new Item.Properties().stacksTo(8)));
 
+
+
     public static final RegistryObject<Item> LESSER_BLOOD_VIAL = ITEMS.register("lesser_blood_vial",
             () -> new BloodVialItem(new Item.Properties().stacksTo(8)
                     .food((new FoodProperties.Builder()).nutrition(0).saturationMod(0).build())));
@@ -43,8 +45,9 @@ public class ModItems {
                     .food((new FoodProperties.Builder()).nutrition(0).saturationMod(0).build())));
 
 
+
     public static final RegistryObject<Item> ANTIPSYCHOTICS = ITEMS.register("antipsychotics",
-            () -> new MedicationItem(new Item.Properties().stacksTo(8)
+            () -> new AntipsychoticItem(new Item.Properties().stacksTo(8)
                     .food((new FoodProperties.Builder()).nutrition(0).saturationMod(0).build())));;
 
     public static final RegistryObject<Item> ANTIDEPRESSANTS = ITEMS.register("antidepressants",
@@ -52,11 +55,14 @@ public class ModItems {
                     .food((new FoodProperties.Builder()).nutrition(0).saturationMod(0).build())));;
 
     public static final RegistryObject<Item> LITHOBID = ITEMS.register("lithobid",
-            () -> new MedicationItem(new Item.Properties().stacksTo(8)
+            () -> new LithobidItem(new Item.Properties().stacksTo(8)
                     .food((new FoodProperties.Builder()).nutrition(0).saturationMod(0).build())));;
+
+
 
     public static final RegistryObject<Item> VAMPIRE_DAGGER = ITEMS.register("vampire_dagger",
             () -> new SwordItem(Tiers.IRON, 3, -2.4F, new Item.Properties().stacksTo(1)));
+
 
 
     public static final RegistryObject<Item> LICH_GAUNTLET = ITEMS.register("lich_gauntlet",
@@ -70,6 +76,23 @@ public class ModItems {
 
     public static final RegistryObject<Item> LICH_GAUNTLET_SOUL = ITEMS.register("lich_gauntlet_soul",
             () -> new LichGauntletSoulItem(new Item.Properties().stacksTo(1)));
+
+
+
+    public static final RegistryObject<Item> MENTALLY_ILL_ICON = ITEMS.register("mentally_ill_icon",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> BIPOLAR_ICON = ITEMS.register("bipolar_icon",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> COTARDS_ICON = ITEMS.register("cotards_icon",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> DID_ICON = ITEMS.register("did_icon",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> SCHIZOPHRENIA_ICON = ITEMS.register("schizophrenia_icon",
+            () -> new Item(new Item.Properties().stacksTo(1)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

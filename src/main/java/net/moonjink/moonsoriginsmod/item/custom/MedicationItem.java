@@ -7,8 +7,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -28,6 +26,7 @@ public class MedicationItem extends Item {
             CriteriaTriggers.CONSUME_ITEM.trigger($$3, pStack);
             $$3.awardStat(Stats.ITEM_USED.get(this));
             applyPotionEffect(pEntityLiving);
+            removeIncompatibleEffect(pEntityLiving);
         }
 
         if (pStack.isEmpty()) {
@@ -45,13 +44,9 @@ public class MedicationItem extends Item {
         }
     }
 
-
-    private void applyPotionEffect(LivingEntity entity) {
-        MobEffect effect = ModEffects.MEDICATED.get();
-        int duration = 12000;
-        int amplifier = 0;
-
-        entity.addEffect(new net.minecraft.world.effect.MobEffectInstance(effect, duration, amplifier));
+    protected void applyPotionEffect(LivingEntity pEntityLiving) {
+    }
+    protected void removeIncompatibleEffect(LivingEntity pEntityLiving) {
     }
 
     public int getUseDuration(ItemStack pStack) {

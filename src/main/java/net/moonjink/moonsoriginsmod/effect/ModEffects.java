@@ -12,10 +12,16 @@ public class ModEffects {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS
             = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Moonsoriginsmod.MOD_ID);
 
-    public static final RegistryObject<MobEffect> MEDICATED = MOB_EFFECTS.register("medicated",
-            () -> new MedicatedEffect(MobEffectCategory.NEUTRAL, 0));
+    public static final RegistryObject<MobEffect> ANTIPSYCHOTIC_MEDICATED = MOB_EFFECTS.register("antipsychotic_medicated",
+            () -> new AntipsychoticMedicatedEffect(MobEffectCategory.NEUTRAL, 0));
+
+    public static final RegistryObject<MobEffect> LITHOBID_MEDICATED = MOB_EFFECTS.register("lithobid_medicated",
+            () -> new LithobidMedicatedEffect(MobEffectCategory.NEUTRAL, 0));
 
     public static final RegistryObject<MobEffect> MANIC = MOB_EFFECTS.register("manic",
+            () -> new ManicEffect(MobEffectCategory.NEUTRAL, 0));
+
+    public static final RegistryObject<MobEffect> DEPRESSED = MOB_EFFECTS.register("depressed",
             () -> new ManicEffect(MobEffectCategory.NEUTRAL, 0));
 
     public static void register(IEventBus eventBus) {
