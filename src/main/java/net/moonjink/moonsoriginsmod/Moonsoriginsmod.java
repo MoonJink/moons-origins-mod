@@ -11,6 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.moonjink.moonsoriginsmod.block.ModBlocks;
 import net.moonjink.moonsoriginsmod.effect.ModEffects;
 import net.moonjink.moonsoriginsmod.entity.ModEntities;
 import net.moonjink.moonsoriginsmod.entity.client.renderers.*;
@@ -39,6 +40,8 @@ public class Moonsoriginsmod {
         ModEffects.register(modEventBus);
 
         ModSounds.register(modEventBus);
+
+        ModBlocks.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
 
@@ -80,15 +83,21 @@ public class Moonsoriginsmod {
             EntityRenderers.register(ModEntities.LICH_SUMMONED_SKELETON.get(), LichSummonedSkeletonRenderer::new);
             EntityRenderers.register(ModEntities.LICH_LARGE_SUMMONED_SKELETON.get(), LichLargeSummonedSkeletonRenderer::new);
             EntityRenderers.register(ModEntities.PERMANENT_LICH_SUMMONED_SKELETON.get(), PermanentLichSummonedSkeletonRenderer::new);
+
             EntityRenderers.register(ModEntities.SUMMON_WOLF.get(), SummonWolfRenderer::new);
             EntityRenderers.register(ModEntities.SUMMON_ANIMAL.get(), SummonAnimalRenderer::new);
+
             EntityRenderers.register(ModEntities.DELAYED_TELEPORT_SIGIL.get(), DelayedTeleportSigilRenderer::new);
             EntityRenderers.register(ModEntities.AOE_LEVITATE_SIGIL.get(), AOELevitateSigilRenderer::new);
             EntityRenderers.register(ModEntities.HEAL_SIGIL.get(), HealSigilRenderer::new);
             EntityRenderers.register(ModEntities.PULL_SIGIL.get(), PullSigilRenderer::new);
+
             EntityRenderers.register(ModEntities.CUSTOM_PLAYER_ENTITY.get(), CustomPlayerEntityRenderer::new);
+
             EntityRenderers.register(ModEntities.HALLUCINATION_ENTITY_WIDE.get(), HallucinationRendererWide::new);
             EntityRenderers.register(ModEntities.HALLUCINATION_ENTITY_SLIM.get(), HallucinationRendererSlim::new);
+            EntityRenderers.register(ModEntities.HALLUCINATION_ENTITY_SLIM.get(), HallucinationRendererSlim::new);
+            EntityRenderers.register(ModEntities.HALLUCINATION_SHADOW_PERSON.get(), HallucinationShadowPersonRenderer::new);
         }
     }
 }

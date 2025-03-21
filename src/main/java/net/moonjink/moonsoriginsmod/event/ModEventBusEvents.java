@@ -35,5 +35,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.HALLUCINATION_ENTITY_WIDE.get(), HallucinationEntityWide.createAttributes().build());
 
         event.put(ModEntities.HALLUCINATION_ENTITY_SLIM.get(), HallucinationEntitySlim.createAttributes().build());
+
+        event.put(ModEntities.HALLUCINATION_SHADOW_PERSON.get(), HallucinationShadowPerson.createAttributes().build());
     }
 }

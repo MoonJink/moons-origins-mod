@@ -92,7 +92,7 @@ public class HallucinationFollowGoal extends FollowOwnerGoal {
         this.tamable.getLookControl().setLookAt(this.owner, 10.0F, (float)this.tamable.getMaxHeadXRot());
         if (--this.timeToRecalcPath <= 0) {
             this.timeToRecalcPath = this.adjustedTickDelay(10);
-            if (this.tamable.distanceToSqr(this.owner) >= 2500) {
+            if (this.tamable.distanceToSqr(this.owner) >= 10000) {
                 this.teleportToOwner();
             } else {
                 this.navigation.moveTo(this.owner, this.speedModifier);

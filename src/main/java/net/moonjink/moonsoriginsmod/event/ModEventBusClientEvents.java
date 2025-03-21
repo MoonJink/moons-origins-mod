@@ -39,6 +39,8 @@ public class ModEventBusClientEvents {
         event.registerLayerDefinition(ModModelLayers.HALLUCINATION_LAYER_WIDE, HallucinationModelWide::createBodyLayer);
 
         event.registerLayerDefinition(ModModelLayers.HALLUCINATION_LAYER_SLIM, HallucinationModelSlim::createBodyLayer);
+
+        event.registerLayerDefinition(ModModelLayers.HALLUCINATION_SHADOW_PERSON_LAYER, HallucinationShadowPersonModel::createBodyLayer);
     }
     @SubscribeEvent
     public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {

@@ -40,4 +40,7 @@ public class ModModelLayers {
 
     public static final ModelLayerLocation HALLUCINATION_LAYER_SLIM = new ModelLayerLocation(
             new ResourceLocation(Moonsoriginsmod.MOD_ID, "hallucination_layer_slim"), "main");
+
+    public static final ModelLayerLocation HALLUCINATION_SHADOW_PERSON_LAYER = new ModelLayerLocation(
+            new ResourceLocation(Moonsoriginsmod.MOD_ID, "hallucination_shadow_person_layer"), "main");
 }

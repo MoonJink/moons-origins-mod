@@ -7,6 +7,7 @@
   "entity.moonsoriginsmod.custom_player_entity": "§cCaspian Baby",
   "entity.moonsoriginsmod.hallucination_entity_slim": "Hallucination",
   "entity.moonsoriginsmod.hallucination_entity_wide": "Hallucination",
+  "entity.moonsoriginsmod.hallucination_shadow_person": "Hallucination",
 
 
   "item.moonsoriginsmod.lich_borne_iron": "§eLich-borne iron",
@@ -42,5 +43,8 @@
   "effect.moonsoriginsmod.antipsychotic_medicated": "Medicated",
   "effect.moonsoriginsmod.lithobid_medicated": "Medicated",
   "effect.moonsoriginsmod.manic": "Manic",
-  "effect.moonsoriginsmod.depressed": "Depressed"
+  "effect.moonsoriginsmod.depressed": "Depressed",
+
+
+  "block.moonsoriginsmod.static_block": "Hallucinated Block"
 }

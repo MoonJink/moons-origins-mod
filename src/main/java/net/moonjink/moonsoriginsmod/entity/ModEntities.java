@@ -61,6 +61,10 @@ public class ModEntities {
             ENTITY_TYPES.register("hallucination_entity_slim", () -> EntityType.Builder.of(HallucinationEntitySlim::new, MobCategory.MISC)
                     .sized(0.6f, 2f).build("hallucination_entity_slim"));
 
+    public static final RegistryObject<EntityType<HallucinationShadowPerson>> HALLUCINATION_SHADOW_PERSON =
+            ENTITY_TYPES.register("hallucination_shadow_person", () -> EntityType.Builder.of(HallucinationShadowPerson::new, MobCategory.MISC)
+                    .sized(0.5f, 2f).build("hallucination_shadow_person"));
+
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }
