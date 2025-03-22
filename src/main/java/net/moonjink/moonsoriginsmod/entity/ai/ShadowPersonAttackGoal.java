@@ -47,7 +47,7 @@ public class ShadowPersonAttackGoal extends MeleeAttackGoal {
     }
 
     private boolean isEnemyWithinAttackDistance(LivingEntity pEnemy, double pDistToEnemySqr) {
-        return pDistToEnemySqr <= this.getAttackReachSqr(pEnemy)+10;
+        return pDistToEnemySqr <= this.getAttackReachSqr(pEnemy)+20;
     }
 
     protected void resetAttackCooldown() {

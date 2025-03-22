@@ -48,14 +48,14 @@ public class HallucinationShadowPerson extends TamableAnimal {
                 .add(Attributes.KNOCKBACK_RESISTANCE, 100)
                 .add(Attributes.ARMOR, 0)
                 .add(Attributes.ARMOR_TOUGHNESS, 0)
-                .add(Attributes.MOVEMENT_SPEED, 0.5D);
+                .add(Attributes.MOVEMENT_SPEED, 0.4D);
     }
 
     @Override
     public void registerGoals() {
         this.goalSelector.addGoal(0,new ShadowPersonAttackGoal(this,1.0D, true));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 20, 1));
-        this.goalSelector.addGoal(3, new HallucinationFollowGoal(this, 1, 15, 5, false));
+        this.goalSelector.addGoal(3, new SummonsFollowGoal(this, 1, 10, 3, false));
         this.goalSelector.addGoal(5, new FloatGoal(this));
 
         this.targetSelector.addGoal(1, new OwnerHurtTargetGoal(this));
@@ -138,7 +138,7 @@ public class HallucinationShadowPerson extends TamableAnimal {
 
         if (!this.level().isClientSide) {
             // Count entities of this type currently in the world
-            long count = this.level().getEntitiesOfClass(HallucinationEntity.class, this.getBoundingBox().inflate(50)).size();
+            long count = this.level().getEntitiesOfClass(HallucinationShadowPerson.class, this.getBoundingBox().inflate(50)).size();
 
             if (count > 1) {
                 this.discard(); // Discard this entity if there's already one
@@ -189,6 +189,10 @@ public class HallucinationShadowPerson extends TamableAnimal {
             return false;
         }
         return super.hurt(pSource, pAmount);
+    }
+    @Override
+    public boolean isPickable() {
+        return false; // Prevents anything from interacting with the entity
     }
 }
 
