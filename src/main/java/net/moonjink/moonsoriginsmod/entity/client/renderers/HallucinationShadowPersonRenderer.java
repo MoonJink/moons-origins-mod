@@ -8,9 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
 import net.moonjink.moonsoriginsmod.entity.client.ModModelLayers;
 import net.moonjink.moonsoriginsmod.entity.client.models.HallucinationShadowPersonModel;
-import net.moonjink.moonsoriginsmod.entity.client.models.LichSummonedSkeletonModel;
-import net.moonjink.moonsoriginsmod.entity.custom.HallucinationShadowPerson;
-import net.moonjink.moonsoriginsmod.entity.custom.LichSummonedSkeletonEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.hallucinations.HallucinationShadowPerson;
 import org.jetbrains.annotations.NotNull;
 
 public class HallucinationShadowPersonRenderer extends MobRenderer<HallucinationShadowPerson, HallucinationShadowPersonModel<HallucinationShadowPerson>> {

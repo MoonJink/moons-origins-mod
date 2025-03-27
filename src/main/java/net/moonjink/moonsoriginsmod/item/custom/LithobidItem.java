@@ -12,7 +12,7 @@ public class LithobidItem extends MedicationItem {
     @Override
     protected void applyPotionEffect(LivingEntity pEntityLiving) {
         MobEffect effect = ModEffects.LITHOBID_MEDICATED.get();
-        int duration = 12000;
+        int duration = 6000;
         int amplifier = 0;
 
         pEntityLiving.addEffect(new net.minecraft.world.effect.MobEffectInstance(effect, duration, amplifier));

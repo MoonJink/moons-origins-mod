@@ -1,4 +1,4 @@
-package net.moonjink.moonsoriginsmod.entity.custom;
+package net.moonjink.moonsoriginsmod.entity.custom.hallucinations;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -8,6 +8,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -22,6 +23,8 @@ public class HallucinationEntity extends TamableAnimal {
 
     public HallucinationEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+        ((GroundPathNavigation)this.getNavigation()).setCanOpenDoors(true);
+        ((GroundPathNavigation)this.getNavigation()).canOpenDoors();
         this.lifespan = 20 * 25;
     }
 
@@ -39,6 +42,7 @@ public class HallucinationEntity extends TamableAnimal {
 
     @Override
     public void registerGoals() {
+        this.goalSelector.addGoal(0, new OpenDoorGoal(this, true));
         this.goalSelector.addGoal(0, new LookAtPlayerGoal(this, Player.class, 50, 100));
         this.goalSelector.addGoal(0, new HallucinationFollowGoal(this, 1.2, 15, 0, false));
         this.goalSelector.addGoal(1, new HallucinationWaterAvoidingRandomStrollGoal(this, 1.0, 100));
@@ -72,7 +76,7 @@ public class HallucinationEntity extends TamableAnimal {
         // Removes entity when colliding
         boolean playerNearby = false;
         for (Player player : this.level().players()) {
-            if (player.distanceTo(this) < 1.1) { // Distance from a player
+            if (player.distanceTo(this) < 1.5) { // Distance from a player
                 playerNearby = true;
                 break;
             }

@@ -33,6 +33,9 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> SHROUD_SIGIL = PARTICLE_TYPES.register("shroud_sigil",
             () -> new SimpleParticleType(false));
 
+    public static final RegistryObject<SimpleParticleType> WATER_AURA_PARTICLE = PARTICLE_TYPES.register("water_aura_particle",
+            () -> new SimpleParticleType(false));
+
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }

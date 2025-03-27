@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "BMT"
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:flowers"
+    },
+    "B": {
+      "item": "minecraft:bone"
+    },
+    "M": {
+      "item": "minecraft:bowl"
+    },
+    "T": {
+      "tag": "moonsoriginsmod:makeshift_antipsychotic_natural_ingredient"
+    }
+  },
+  "result": {
+    "count": 2,
+    "item": "moonsoriginsmod:makeshift_antipsychotics"
+  },
+  "show_notification": true
+}

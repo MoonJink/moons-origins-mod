@@ -32,7 +32,7 @@ public class ModItems {
             () -> new Item(new Item.Properties().stacksTo(8)));
 
     public static final RegistryObject<Item> EMPTY_PILL_BOTTLE = ITEMS.register("empty_pill_bottle",
-            () -> new Item(new Item.Properties().stacksTo(8)));
+            () -> new Item(new Item.Properties().stacksTo(12)));
 
 
 
@@ -47,15 +47,19 @@ public class ModItems {
 
 
     public static final RegistryObject<Item> ANTIPSYCHOTICS = ITEMS.register("antipsychotics",
-            () -> new AntipsychoticItem(new Item.Properties().stacksTo(8)
+            () -> new AntipsychoticItem(new Item.Properties().stacksTo(12)
                     .food((new FoodProperties.Builder()).nutrition(0).saturationMod(0).build())));;
 
+                    public static final RegistryObject<Item> MAKESHIFT_ANTIPSYCHOTICS = ITEMS.register("makeshift_antipsychotics",
+            () -> new MakeshiftAntipsychoticItem(new Item.Properties().stacksTo(6)
+                    .food((new FoodProperties.Builder()).nutrition(2).saturationMod(0).build())));;
+
     public static final RegistryObject<Item> ANTIDEPRESSANTS = ITEMS.register("antidepressants",
-            () -> new AntiDepressantItem(new Item.Properties().stacksTo(8)
+            () -> new AntiDepressantItem(new Item.Properties().stacksTo(12)
                     .food((new FoodProperties.Builder()).nutrition(0).saturationMod(0).build())));;
 
     public static final RegistryObject<Item> LITHOBID = ITEMS.register("lithobid",
-            () -> new LithobidItem(new Item.Properties().stacksTo(8)
+            () -> new LithobidItem(new Item.Properties().stacksTo(12)
                     .food((new FoodProperties.Builder()).nutrition(0).saturationMod(0).build())));;
 
 

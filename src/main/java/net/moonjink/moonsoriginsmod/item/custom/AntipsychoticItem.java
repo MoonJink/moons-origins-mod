@@ -11,7 +11,7 @@ public class AntipsychoticItem extends MedicationItem {
     @Override
     protected void applyPotionEffect(LivingEntity pEntityLiving) {
         MobEffect effect = ModEffects.ANTIPSYCHOTIC_MEDICATED.get();
-        int duration = 12000;
+        int duration = 9000;
         int amplifier = 0;
 
         pEntityLiving.addEffect(new net.minecraft.world.effect.MobEffectInstance(effect, duration, amplifier));

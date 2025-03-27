@@ -6,6 +6,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
 import net.moonjink.moonsoriginsmod.entity.ModEntities;
 import net.moonjink.moonsoriginsmod.entity.custom.*;
+import net.moonjink.moonsoriginsmod.entity.custom.hallucinations.HallucinationEntitySlim;
+import net.moonjink.moonsoriginsmod.entity.custom.hallucinations.HallucinationEntityWide;
+import net.moonjink.moonsoriginsmod.entity.custom.hallucinations.HallucinationShadowPerson;
+import net.moonjink.moonsoriginsmod.entity.custom.lich_summons.LichLargeSummonedSkeletonEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.lich_summons.LichSummonedSkeletonEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.lich_summons.PermanentLichSummonedSkeletonEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.sigils.*;
 
 @Mod.EventBusSubscriber(modid = Moonsoriginsmod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEventBusEvents {
@@ -26,6 +33,8 @@ public class ModEventBusEvents {
 
         event.put(ModEntities.AOE_LEVITATE_SIGIL.get(), AOELevitateSigilEntity.createAttributes().build());
 
+        event.put(ModEntities.CAREGIVER_HEAL_SIGIL.get(), CaregiverHealSigilEntity.createAttributes().build());
+
         event.put(ModEntities.HEAL_SIGIL.get(), HealSigilEntity.createAttributes().build());
 
         event.put(ModEntities.PULL_SIGIL.get(), PullSigilEntity.createAttributes().build());
@@ -37,5 +46,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.HALLUCINATION_ENTITY_SLIM.get(), HallucinationEntitySlim.createAttributes().build());
 
         event.put(ModEntities.HALLUCINATION_SHADOW_PERSON.get(), HallucinationShadowPerson.createAttributes().build());
+
+        event.put(ModEntities.WATER_SIGIl_ENTITY.get(), WaterSigilEntity.createAttributes().build());
     }
 }

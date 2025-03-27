@@ -8,7 +8,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
 import net.moonjink.moonsoriginsmod.entity.animations.ModAnimationDefinitions;
-import net.moonjink.moonsoriginsmod.entity.custom.LichLargeSummonedSkeletonEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.lich_summons.LichLargeSummonedSkeletonEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class LichLargeSummonedSkeletonModel<T extends Entity> extends HierarchicalModel<T> {

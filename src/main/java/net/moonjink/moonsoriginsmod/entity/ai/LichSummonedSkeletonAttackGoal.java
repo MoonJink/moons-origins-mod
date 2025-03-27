@@ -4,7 +4,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.moonjink.moonsoriginsmod.entity.custom.LichSummonedSkeletonEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.lich_summons.LichSummonedSkeletonEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class LichSummonedSkeletonAttackGoal extends MeleeAttackGoal {

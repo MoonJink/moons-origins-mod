@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
 import net.moonjink.moonsoriginsmod.entity.client.ModModelLayers;
 import net.moonjink.moonsoriginsmod.entity.client.models.LichLargeSummonedSkeletonModel;
-import net.moonjink.moonsoriginsmod.entity.custom.LichLargeSummonedSkeletonEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.lich_summons.LichLargeSummonedSkeletonEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class LichLargeSummonedSkeletonRenderer extends MobRenderer<LichLargeSummonedSkeletonEntity, LichLargeSummonedSkeletonModel<LichLargeSummonedSkeletonEntity>> {

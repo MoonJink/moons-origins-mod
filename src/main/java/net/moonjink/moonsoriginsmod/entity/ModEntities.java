@@ -8,6 +8,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
 import net.moonjink.moonsoriginsmod.entity.custom.*;
+import net.moonjink.moonsoriginsmod.entity.custom.hallucinations.HallucinationEntitySlim;
+import net.moonjink.moonsoriginsmod.entity.custom.hallucinations.HallucinationEntityWide;
+import net.moonjink.moonsoriginsmod.entity.custom.hallucinations.HallucinationShadowPerson;
+import net.moonjink.moonsoriginsmod.entity.custom.lich_summons.LichLargeSummonedSkeletonEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.lich_summons.LichSummonedSkeletonEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.lich_summons.PermanentLichSummonedSkeletonEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.sigils.*;
 
 public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
@@ -41,6 +48,10 @@ public class ModEntities {
             ENTITY_TYPES.register("aoe_levitate_sigil", () -> EntityType.Builder.of(AOELevitateSigilEntity::new, MobCategory.MISC)
                     .sized(12f, 0.05f).build("aoe_levitate_sigil"));
 
+    public static final RegistryObject<EntityType<CaregiverHealSigilEntity>> CAREGIVER_HEAL_SIGIL =
+            ENTITY_TYPES.register("caregiver_heal_sigil", () -> EntityType.Builder.of(CaregiverHealSigilEntity::new, MobCategory.MISC)
+                    .sized(30f, 0.05f).build("caregiver_heal_sigil"));
+
     public static final RegistryObject<EntityType<HealSigilEntity>> HEAL_SIGIL =
             ENTITY_TYPES.register("heal_sigil", () -> EntityType.Builder.of(HealSigilEntity::new, MobCategory.MISC)
                     .sized(2f, 0.01f).build("heal_sigil"));
@@ -55,15 +66,19 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<HallucinationEntityWide>> HALLUCINATION_ENTITY_WIDE =
             ENTITY_TYPES.register("hallucination_entity_wide", () -> EntityType.Builder.of(HallucinationEntityWide::new, MobCategory.MISC)
-                    .sized(0.6f, 2f).build("hallucination_entity_wide"));
+                    .sized(0.6f, 1.9f).build("hallucination_entity_wide"));
 
     public static final RegistryObject<EntityType<HallucinationEntitySlim>> HALLUCINATION_ENTITY_SLIM =
             ENTITY_TYPES.register("hallucination_entity_slim", () -> EntityType.Builder.of(HallucinationEntitySlim::new, MobCategory.MISC)
-                    .sized(0.6f, 2f).build("hallucination_entity_slim"));
+                    .sized(0.6f, 1.9f).build("hallucination_entity_slim"));
 
     public static final RegistryObject<EntityType<HallucinationShadowPerson>> HALLUCINATION_SHADOW_PERSON =
             ENTITY_TYPES.register("hallucination_shadow_person", () -> EntityType.Builder.of(HallucinationShadowPerson::new, MobCategory.MISC)
-                    .sized(0.75f, 4f).build("hallucination_shadow_person"));
+                    .sized(0.6f, 4f).build("hallucination_shadow_person"));
+
+    public static final RegistryObject<EntityType<WaterSigilEntity>> WATER_SIGIl_ENTITY =
+            ENTITY_TYPES.register("water_sigil_entity", () -> EntityType.Builder.of(WaterSigilEntity::new, MobCategory.MISC)
+                    .sized(20f, 0.05f).build("water_sigil_entity"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

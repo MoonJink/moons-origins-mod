@@ -1,4 +1,4 @@
-package net.moonjink.moonsoriginsmod.entity.client.renderers;
+package net.moonjink.moonsoriginsmod.entity.client.renderers.sigils;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -7,8 +7,8 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
 import net.moonjink.moonsoriginsmod.entity.client.ModModelLayers;
-import net.moonjink.moonsoriginsmod.entity.client.models.AOELevitateSigilModel;
-import net.moonjink.moonsoriginsmod.entity.custom.AOELevitateSigilEntity;
+import net.moonjink.moonsoriginsmod.entity.client.models.sigils.AOELevitateSigilModel;
+import net.moonjink.moonsoriginsmod.entity.custom.sigils.AOELevitateSigilEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class AOELevitateSigilRenderer extends MobRenderer<AOELevitateSigilEntity, AOELevitateSigilModel<AOELevitateSigilEntity>> {

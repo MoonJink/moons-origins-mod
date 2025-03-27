@@ -36,6 +36,7 @@
   "item.moonsoriginsmod.antidepressants": "§eAntidepressants",
   "item.moonsoriginsmod.lithobid": "§eLithobid",
   "item.moonsoriginsmod.empty_pill_bottle": "Empty pill bottle",
+  "item.moonsoriginsmod.makeshift_antipsychotics": "Antipsychotics §o(makeshift)",
 
 
   "item.moonsoriginsmod.vampire_dagger": "§4Vampire's Dagger",
@@ -44,6 +45,8 @@
   "effect.moonsoriginsmod.lithobid_medicated": "Medicated",
   "effect.moonsoriginsmod.manic": "Manic",
   "effect.moonsoriginsmod.depressed": "Depressed",
+  "effect.moonsoriginsmod.sanity_gain": "Sanity Gain",
+  "effect.moonsoriginsmod.sanity_loss": "Sanity Loss",
 
 
   "block.moonsoriginsmod.static_block": "Hallucinated Block"

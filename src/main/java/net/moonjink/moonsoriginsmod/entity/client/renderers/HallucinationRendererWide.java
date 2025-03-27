@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.moonjink.moonsoriginsmod.entity.client.ModModelLayers;
 import net.moonjink.moonsoriginsmod.entity.client.models.HallucinationModelWide;
-import net.moonjink.moonsoriginsmod.entity.custom.HallucinationEntityWide;
+import net.moonjink.moonsoriginsmod.entity.custom.hallucinations.HallucinationEntityWide;
 import org.jetbrains.annotations.NotNull;
 
 public class HallucinationRendererWide extends MobRenderer<HallucinationEntityWide, HallucinationModelWide<HallucinationEntityWide>> {

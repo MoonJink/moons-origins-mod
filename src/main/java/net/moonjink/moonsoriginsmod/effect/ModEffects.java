@@ -22,6 +22,12 @@ public class ModEffects {
             () -> new ManicEffect(MobEffectCategory.NEUTRAL, 0));
 
     public static final RegistryObject<MobEffect> DEPRESSED = MOB_EFFECTS.register("depressed",
+            () -> new ManicEffect(MobEffectCategory.NEUTRAL, 3100384));
+
+    public static final RegistryObject<MobEffect> SANITY_GAIN = MOB_EFFECTS.register("sanity_gain",
+            () -> new ManicEffect(MobEffectCategory.NEUTRAL, 0));
+
+    public static final RegistryObject<MobEffect> SANITY_LOSS = MOB_EFFECTS.register("sanity_loss",
             () -> new ManicEffect(MobEffectCategory.NEUTRAL, 0));
 
     public static void register(IEventBus eventBus) {

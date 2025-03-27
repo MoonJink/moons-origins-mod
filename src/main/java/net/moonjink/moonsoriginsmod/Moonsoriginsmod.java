@@ -15,6 +15,7 @@ import net.moonjink.moonsoriginsmod.block.ModBlocks;
 import net.moonjink.moonsoriginsmod.effect.ModEffects;
 import net.moonjink.moonsoriginsmod.entity.ModEntities;
 import net.moonjink.moonsoriginsmod.entity.client.renderers.*;
+import net.moonjink.moonsoriginsmod.entity.client.renderers.sigils.*;
 import net.moonjink.moonsoriginsmod.item.ModItems;
 import net.moonjink.moonsoriginsmod.particle.ModParticles;
 import net.moonjink.moonsoriginsmod.sound.ModSounds;
@@ -62,6 +63,7 @@ public class Moonsoriginsmod {
             event.accept(ModItems.LESSER_BLOOD_VIAL);
             event.accept(ModItems.GREATER_BLOOD_VIAL);
             event.accept(ModItems.ANTIPSYCHOTICS);
+            event.accept(ModItems.MAKESHIFT_ANTIPSYCHOTICS);
             event.accept(ModItems.ANTIDEPRESSANTS);
             event.accept(ModItems.LITHOBID);
             event.accept(ModItems.EMPTY_PILL_BOTTLE);
@@ -91,6 +93,8 @@ public class Moonsoriginsmod {
             EntityRenderers.register(ModEntities.AOE_LEVITATE_SIGIL.get(), AOELevitateSigilRenderer::new);
             EntityRenderers.register(ModEntities.HEAL_SIGIL.get(), HealSigilRenderer::new);
             EntityRenderers.register(ModEntities.PULL_SIGIL.get(), PullSigilRenderer::new);
+            EntityRenderers.register(ModEntities.CAREGIVER_HEAL_SIGIL.get(), CaregiverHealSigilRenderer::new);
+            EntityRenderers.register(ModEntities.WATER_SIGIl_ENTITY.get(), WaterSigilRenderer::new);
 
             EntityRenderers.register(ModEntities.CUSTOM_PLAYER_ENTITY.get(), CustomPlayerEntityRenderer::new);
 

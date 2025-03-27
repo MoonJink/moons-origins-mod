@@ -1,4 +1,4 @@
-package net.moonjink.moonsoriginsmod.entity.custom;
+package net.moonjink.moonsoriginsmod.entity.custom.hallucinations;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -41,9 +41,9 @@ public class HallucinationShadowPerson extends TamableAnimal {
 
     public static AttributeSupplier.Builder createAttributes() {
         return TamableAnimal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 20)
+                .add(Attributes.MAX_HEALTH, 4)
                 .add(Attributes.FOLLOW_RANGE, 50)
-                .add(Attributes.ATTACK_DAMAGE, 15)
+                .add(Attributes.ATTACK_DAMAGE, 12)
                 .add(Attributes.ATTACK_KNOCKBACK, 0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 100)
                 .add(Attributes.ARMOR, 0)
@@ -55,7 +55,7 @@ public class HallucinationShadowPerson extends TamableAnimal {
     public void registerGoals() {
         this.goalSelector.addGoal(0,new ShadowPersonAttackGoal(this,1.0D, true));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 20, 1));
-        this.goalSelector.addGoal(3, new SummonsFollowGoal(this, 1, 10, 3, false));
+        this.goalSelector.addGoal(3, new SummonsFollowGoal(this, 1, 30, 3, false));
         this.goalSelector.addGoal(5, new FloatGoal(this));
 
         this.targetSelector.addGoal(1, new OwnerHurtTargetGoal(this));

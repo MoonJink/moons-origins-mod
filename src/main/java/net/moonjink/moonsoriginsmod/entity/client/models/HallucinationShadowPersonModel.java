@@ -9,8 +9,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.moonjink.moonsoriginsmod.entity.animations.ModAnimationDefinitions;
-import net.moonjink.moonsoriginsmod.entity.custom.HallucinationShadowPerson;
-import net.moonjink.moonsoriginsmod.entity.custom.LichSummonedSkeletonEntity;
+import net.moonjink.moonsoriginsmod.entity.custom.hallucinations.HallucinationShadowPerson;
 import org.jetbrains.annotations.NotNull;
 
 public class HallucinationShadowPersonModel<T extends Entity> extends HierarchicalModel<T> {

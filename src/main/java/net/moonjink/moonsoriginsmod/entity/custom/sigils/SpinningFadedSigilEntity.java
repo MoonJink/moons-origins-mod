@@ -1,4 +1,4 @@
-package net.moonjink.moonsoriginsmod.entity.custom;
+package net.moonjink.moonsoriginsmod.entity.custom.sigils;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -6,39 +6,19 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-public class PullSigilEntity extends Animal {
-    public PullSigilEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
+public class SpinningFadedSigilEntity extends Animal {
+    public SpinningFadedSigilEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.lifespan = 20 * 1;
     }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH,1)
-                .add(Attributes.FOLLOW_RANGE,1)
-                .add(Attributes.MOVEMENT_SPEED,0D);
-    }
-    @Override
-    public boolean canBeCollidedWith() {
-        return false; // No collision
-    }
-
-    @Override
-    public boolean isPushable() {
-        return false; // Not pushable
-    }
-
-    @Override
-    public boolean skipAttackInteraction(Entity entity) {
-        return true; // No interactions
-    }
-
-    @Override
-    public void playerTouch(Player player) {
-        // Do nothing
+                .add(Attributes.MAX_HEALTH, 1)
+                .add(Attributes.FOLLOW_RANGE, 1)
+                .add(Attributes.MOVEMENT_SPEED, 0D);
     }
 
     @Override
@@ -47,13 +27,8 @@ public class PullSigilEntity extends Animal {
     }
 
 
-    @Override
-    public boolean hurt(DamageSource source, float amount) {
-        return false;
-    }
-
     /*      ANIMATIONS AND LIFESPAN      */
-    private int lifespan;
+    protected int lifespanSigil; // Creates lifespan -> look at super class for setting the value
 
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
@@ -63,21 +38,21 @@ public class PullSigilEntity extends Animal {
     public void tick() {
         super.tick();
 
-        if(this.level().isClientSide()) {
+        if (this.level().isClientSide()) {
             setupAnimationStates(); // Makes animations client-side only
         }
         // Lowers lifespan every tick
-        if(!this.level().isClientSide) {
-            lifespan--;
+        if (!this.level().isClientSide) {
+            lifespanSigil--;
 
-            if(lifespan <= 0) {
+            if (lifespanSigil <= 0) {
                 this.discard();
             }
         }
     }
 
     private void setupAnimationStates() {
-        if(this.idleAnimationTimeout <= 0) {
+        if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = 19; // Length in ticks of idle anim
             this.idleAnimationState.start(this.tickCount);
         } else {
@@ -88,12 +63,40 @@ public class PullSigilEntity extends Animal {
     @Override
     protected void updateWalkAnimation(float pPartialTick) {
         float f;
-        if(this.getPose() == Pose.STANDING) {
+        if (this.getPose() == Pose.STANDING) {
             f = Math.min(pPartialTick * 6F, 1f);
         } else {
             f = 0f;
         }
 
         this.walkAnimation.update(f, 0.2f);
+    }
+
+
+    /*      COLLISION, INTERACTION AND DAMAGE      */
+    @Override
+    public boolean canBeCollidedWith() {
+        return false; // No collision (not sure if works)
+    }
+
+    @Override
+    public boolean isPushable() {
+        return false; // Not pushable (not sure if works)
+    }
+
+    @Override
+    public boolean isPickable() {
+        return false; // Prevents anything from interacting with the entity
+    }
+
+    @Override
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        if (pSource == this.level().damageSources().genericKill()) {
+            this.discard();
+        }
+        if (!this.level().isClientSide) {
+            return false;
+        }
+        return super.hurt(pSource, pAmount);
     }
 }

@@ -26,6 +26,12 @@ public class ModModelLayers {
     public static final ModelLayerLocation AOE_LEVITATE_LAYER = new ModelLayerLocation(
             new ResourceLocation(Moonsoriginsmod.MOD_ID, "aoe_levitate_layer"), "main");
 
+    public static final ModelLayerLocation CAREGIVER_HEAL_SIGIL_LAYER = new ModelLayerLocation(
+            new ResourceLocation(Moonsoriginsmod.MOD_ID, "caregiver_heal_sigil_layer"), "main");
+
+    public static final ModelLayerLocation WATER_SIGIL_LAYER = new ModelLayerLocation(
+            new ResourceLocation(Moonsoriginsmod.MOD_ID, "water_sigil_layer"), "main");
+
     public static final ModelLayerLocation HEAL_LAYER = new ModelLayerLocation(
             new ResourceLocation(Moonsoriginsmod.MOD_ID, "heal_layer"), "main");
 

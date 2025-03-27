@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.moonjink.moonsoriginsmod.Moonsoriginsmod;
 import net.moonjink.moonsoriginsmod.entity.client.*;
 import net.moonjink.moonsoriginsmod.entity.client.models.*;
+import net.moonjink.moonsoriginsmod.entity.client.models.sigils.*;
 import net.moonjink.moonsoriginsmod.particle.ModParticles;
 import net.moonjink.moonsoriginsmod.particle.custom.*;
 
@@ -29,6 +30,10 @@ public class ModEventBusClientEvents {
         event.registerLayerDefinition(ModModelLayers.DELAYED_TELEPORT_SIGIL_LAYER, DelayedTeleportSigilModel::createBodyLayer);
 
         event.registerLayerDefinition(ModModelLayers.AOE_LEVITATE_LAYER, AOELevitateSigilModel::createBodyLayer);
+
+        event.registerLayerDefinition(ModModelLayers.CAREGIVER_HEAL_SIGIL_LAYER, CaregiverHealSigilModel::createBodyLayer);
+
+        event.registerLayerDefinition(ModModelLayers.WATER_SIGIL_LAYER, WaterSigilModel::createBodyLayer);
 
         event.registerLayerDefinition(ModModelLayers.HEAL_LAYER, HealSigilModel::createBodyLayer);
 
@@ -64,5 +69,8 @@ public class ModEventBusClientEvents {
 
         event.registerSpriteSet(ModParticles.SHROUD_SIGIL.get(),
                 shroud_sigil.Provider::new);
+
+        event.registerSpriteSet(ModParticles.WATER_AURA_PARTICLE.get(),
+                water_aura_particle.Provider::new);
     }
 }
