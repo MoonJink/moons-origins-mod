@@ -33,17 +33,25 @@ public class HallucinationEntitySlim extends HallucinationEntity {
             new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/hallucinations/slim/hallucinated_undead.png"),
             new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/hallucinations/slim/hallucinated_pirate.png"),
             new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/hallucinations/slim/hallucinated_gorgon.png"),
-            new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/hallucinations/slim/hallucinated_drowned.png")
+            new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/hallucinations/slim/hallucinated_drowned.png"),
+            new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/hallucinations/slim/hallucinated_host.png"),
+            new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/hallucinations/slim/hallucinated_protector.png"),
+            new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/hallucinations/slim/hallucinated_caregiver.png"),
+            new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/hallucinations/slim/hallucinated_persecutor.png"),
+            new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/hallucinations/slim/hallucinated_schizophrenic_person.png")
     );
 
     private ResourceLocation selectSkin() {
-        int test = random.nextInt(2);
+        int test = random.nextInt(3);
 
         if(test == 1) {
             return SKIN_TEXTURES.get(new Random().nextInt(SKIN_TEXTURES.size()));
         }
         else if (test == 0) {
             return new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/hallucinations/shadow.png");
+        }
+        else if (test == 2) {
+            return new ResourceLocation(Moonsoriginsmod.MOD_ID, "textures/entity/hallucinations/slim/hallucinated_doctor.png");
         }
         return null;
     }

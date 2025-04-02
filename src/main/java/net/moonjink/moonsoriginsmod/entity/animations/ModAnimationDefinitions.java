@@ -1206,10 +1206,10 @@ public class ModAnimationDefinitions {
                         new Keyframe(0.0F, KeyframeAnimations.degreeVec(7.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
                 ))
                 .build();
-        public static final AnimationDefinition long_sigil_idle = AnimationDefinition.Builder.withLength(5.0F).looping()
+        public static final AnimationDefinition long_sigil_idle = AnimationDefinition.Builder.withLength(2.0F).looping()
                 .addAnimation("rotate", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                         new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
-                        new Keyframe(5.0F, KeyframeAnimations.degreeVec(0.0F, 360.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                        new Keyframe(2.0F, KeyframeAnimations.degreeVec(0.0F, 360.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
                 ))
                 .build();
 }
