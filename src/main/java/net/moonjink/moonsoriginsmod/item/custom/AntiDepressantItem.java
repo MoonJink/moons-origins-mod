@@ -11,11 +11,12 @@ public class AntiDepressantItem extends MedicationItem {
 
     @Override
     protected void applyPotionEffect(LivingEntity pEntityLiving) {
-        MobEffect effect = ModEffects.MANIC.get();
-        int duration = 9000;
-        int amplifier = 0;
-
-        pEntityLiving.addEffect(new net.minecraft.world.effect.MobEffectInstance(effect, duration, amplifier));
+        if (!pEntityLiving.hasEffect(ModEffects.DEPRESSED.get())) {
+            MobEffect effect = ModEffects.MANIC.get();
+            int duration = 9000;
+            int amplifier = 0;
+            pEntityLiving.addEffect(new net.minecraft.world.effect.MobEffectInstance(effect, duration, amplifier));
+        }
     }
     @Override
     protected void removeIncompatibleEffect(LivingEntity pEntityLiving) {

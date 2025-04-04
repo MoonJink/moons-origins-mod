@@ -33,7 +33,7 @@ public class WaterSigilRenderer extends MobRenderer<WaterSigilEntity, WaterSigil
     }
     public void render(@NotNull WaterSigilEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, @NotNull MultiBufferSource pBuffer, int pPackedLight) {
         // Scale of creature, effects hitbox size too
-        pPoseStack.scale(5F, 5F, 5F);
+        pPoseStack.scale(2.5F, 2.5F, 2.5F);
         super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
     }
 }

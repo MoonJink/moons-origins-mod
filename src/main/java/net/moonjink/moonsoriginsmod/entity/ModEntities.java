@@ -78,7 +78,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<WaterSigilEntity>> WATER_SIGIl_ENTITY =
             ENTITY_TYPES.register("water_sigil_entity", () -> EntityType.Builder.of(WaterSigilEntity::new, MobCategory.MISC)
-                    .sized(20f, 0.05f).build("water_sigil_entity"));
+                    .sized(10f, 0.05f).build("water_sigil_entity"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
